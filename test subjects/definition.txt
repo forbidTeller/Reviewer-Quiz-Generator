@@ -1,0 +1,99 @@
+**Gravity** is a fundamental force of nature that attracts objects with mass toward one another and plays a major role in shaping the universe.
+
+An **algorithm** is a structured set of logical steps used to solve problems or complete tasks in an organized way.
+
+**Culture** represents the shared values, beliefs, traditions, language, and behaviors that shape how a society lives and interacts.
+
+**Photosynthesis** is a complex biological process where plants convert sunlight, water, and carbon dioxide into energy for growth.
+
+A **budget** is a financial plan that helps individuals or organizations control spending by comparing income and expenses.
+
+A **variable** is a named value in mathematics or programming that can change depending on conditions or input.
+
+An **ecosystem** is a dynamic system where plants, animals, and microorganisms interact with their physical environment.
+
+**Democracy** is a system of governance in which citizens participate directly or indirectly in choosing their leaders.
+
+**Probability** is a mathematical concept used to estimate the likelihood of possible outcomes.
+
+A **neuron** is a specialized nerve cell that transmits information through electrical and chemical signals.
+
+**Encryption** is a method of securing data by transforming it into coded information that can only be accessed with proper authorization.
+
+**Inflation** refers to a sustained rise in prices that gradually reduces the purchasing power of money.
+
+**Momentum** is a physical quantity that depends on both the mass and velocity of a moving object.
+
+**Ethics** consists of moral principles that influence human behavior, decisions, and judgment in society.
+
+A **database** is an organized digital system designed to store, manage, and retrieve large amounts of information efficiently.
+
+A **habitat** is the natural environment that provides the resources an organism needs to survive.
+
+**Voltage** is the electrical force that causes electric current to flow through a circuit.
+
+A **metaphor** is a literary device that explains an idea by comparing it to something else with similar qualities.
+
+**Interest** is the cost of borrowing money or the reward earned for lending or saving funds.
+
+**Logic** is a system of reasoning that uses rules and principles to reach valid conclusions.
+
+The **atmosphere** is the protective layer of gases surrounding Earth that supports life and regulates climate.
+
+**Leadership** involves motivating, guiding, and influencing individuals or groups toward achieving common goals.
+
+**Syntax** refers to the rules that define how code must be written in a programming language.
+
+**Density** measures how much mass is contained within a specific volume of space.
+
+A **brand** is the identity of a product or organization, shaped by its image, reputation, and customer perception.
+
+A **virus** is a microscopic infectious agent that can only reproduce inside the cells of living organisms.
+
+A **network** is a system of interconnected devices or individuals that share information and resources.
+
+**Productivity** describes how efficiently time, effort, and resources are used to achieve results.
+
+**Latitude** is a geographic coordinate used to locate positions north or south of the equator.
+
+**Reflection** occurs when light or sound waves bounce off a surface instead of passing through it.
+
+A **contract** is a legally enforceable agreement that clearly defines the rights and responsibilities of involved parties.
+
+**Memory** is the cognitive ability that allows humans to store, retain, and recall information over time.
+
+A **hypothesis** is a proposed explanation for an observation that can be tested through scientific investigation.
+
+**Fuel** is a substance that releases energy when consumed or burned to perform work.
+
+**Tradition** refers to customs and practices passed down from generation to generation within a society.
+
+**Currency** is the officially recognized form of money used for transactions in a country or region.
+
+**Adaptation** is a biological trait or change that improves an organism’s chances of survival.
+
+**Risk** involves uncertainty and the possibility of negative outcomes or loss.
+
+A **sound wave** is a vibration that travels through a medium and is detected by the human ear.
+
+**Authority** is the recognized power or right to make decisions and enforce rules.
+
+A **function** is a rule or process that produces a specific output for every given input.
+
+**Motivation** is the internal or external drive that encourages individuals to act or pursue goals.
+
+**Oxygen** is an essential element required for respiration and many life-sustaining processes.
+
+**Investment** is the act of committing resources with the expectation of gaining future benefits or profits.
+
+**Bias** is a tendency or preference that can influence judgment in an unfair or unbalanced way.
+
+**Velocity** describes how fast an object moves in a particular direction.
+
+**Security** refers to measures taken to protect people, systems, or information from harm or threats.
+
+**Creativity** is the ability to produce original ideas, solutions, or forms of expression.
+
+**Automation** involves using technology to perform tasks with minimal human involvement.
+
+**Innovation** is the process of developing and applying new ideas or improvements to existing methods.
