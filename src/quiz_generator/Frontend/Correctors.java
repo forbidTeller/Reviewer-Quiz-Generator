@@ -14,7 +14,7 @@ class Correctors extends MainComponent
     
     // CONSTRUCTOR
     
-    Correctors (BackendSharedData backend, FrontendSharedData frontend, QuizTypes quizTypes)
+    Correctors (Backend backend, Frontend frontend, QuizTypes quizTypes)
     {
         super (backend, frontend);
         

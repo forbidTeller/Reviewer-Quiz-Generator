@@ -8,7 +8,7 @@ public class QuizTypeProcessor
 {
     // EXTRACTED AND SEPARATED TERMS AND DEFINITIONS WILL BE USED TO CREATE THE THREE QUIZ TYPES
     
-    static String[] multipleChoice (BackendSharedData backend, List<String> highlightedTerms) throws Exception
+    static String[] multipleChoice (Backend backend, List<String> highlightedTerms) throws Exception
     {
         if (backend.isUsedOnce())
         {
@@ -41,7 +41,7 @@ public class QuizTypeProcessor
         return temp.toArray (randomTerms);
     }
     
-    static String[] identification (BackendSharedData backend, List<String> highlightedTerms) throws Exception
+    static String[] identification (Backend backend, List<String> highlightedTerms) throws Exception
     {
         if (backend.isUsedOnce())
         {
@@ -64,7 +64,7 @@ public class QuizTypeProcessor
         return blanks.toArray (String[] :: new);
     }
     
-    static String[] trueFalse (BackendSharedData backend, List<String> highlightedTerms) throws Exception
+    static String[] trueFalse (Backend backend, List<String> highlightedTerms) throws Exception
     {
         if (backend.isUsedOnce())
         {
@@ -106,7 +106,7 @@ public class QuizTypeProcessor
         return term + " IS " + def;
     }
     
-    public static Map<String, String[]> extractTrueFalse (BackendSharedData backend)
+    public static Map<String, String[]> extractTrueFalse (Backend backend)
     {
         Map<String, String[]> stored = new HashMap<>();
         

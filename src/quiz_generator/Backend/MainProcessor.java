@@ -13,7 +13,7 @@ class MainProcessor
 {
     // THE PROCESS WHERE TERMS AND DEFINITIONS ARE BOTH EXTRACTED AND SEPARATED
     
-    static String supportedFileName (BackendSharedData backend, List<String> highlightedTerms) throws Exception
+    static String supportedFileName (Backend backend, List<String> highlightedTerms) throws Exception
     {
         String text;
         
@@ -189,7 +189,7 @@ class MainProcessor
         return termIndex >= 0 && termIndex < verbIndex;
     }
     
-    static void extractTermAndDefinition (BackendSharedData backend, List<String> highlightedTerms) throws Exception
+    static void extractTermAndDefinition (Backend backend, List<String> highlightedTerms) throws Exception
     {
         String text = supportedFileName (backend, highlightedTerms);
         
@@ -208,7 +208,7 @@ class MainProcessor
             
             if (s.isEmpty()) continue;
             
-            String rawTerm = "", definition = "";
+            String rawTerm, definition;
             
             Matcher m;
             m = pAppositive.matcher(s);

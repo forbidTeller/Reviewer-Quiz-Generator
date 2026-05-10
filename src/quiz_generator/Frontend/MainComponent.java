@@ -2,6 +2,8 @@ package quiz_generator.Frontend;
 
 import quiz_generator.Backend.*;
 
+import javax.swing.text.*;
+import javax.swing.event.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -14,12 +16,12 @@ class MainComponent
     
     // PROGRAM DATA
     
-    protected BackendSharedData backend;
-    protected FrontendSharedData frontend;
+    protected Backend backend;
+    protected Frontend frontend;
     
     // CONSTRUCTOR
     
-    MainComponent (BackendSharedData backend, FrontendSharedData frontend)
+    MainComponent (Backend backend, Frontend frontend)
     {
         this.backend = backend;
         this.frontend = frontend;
@@ -95,6 +97,16 @@ class MainComponent
                 {
                     textField.removeActionListener (al);
                 }
+                
+                Document document = textField.getDocument();
+                
+                if (document instanceof AbstractDocument ad)
+                {
+                    for (DocumentListener dl : ad.getDocumentListeners())
+                    {
+                        ad.removeDocumentListener (dl);
+                    }
+                }
             }
             default -> {} // Ignore
         }
@@ -129,6 +141,8 @@ class MainComponent
             case FINAL_LOADING_SCREEN -> imagePath = "/quiz_generator/Design/120.png";
             case PAGE_4 -> imagePath = "/quiz_generator/Design/122.gif";
             case IN_LEADERBOARD -> imagePath = "/quiz_generator/Design/126.png";
+            case SCORE_HISTORY_PAGE_1 -> imagePath = "/quiz_generator/Design/137.gif";
+            case SCORE_HISTORY_PAGE_2 -> imagePath = "/quiz_generator/Design/150.png";
             case MAINTENANCE -> imagePath = "/quiz_generator/Design/maintenance.png";
         }
         

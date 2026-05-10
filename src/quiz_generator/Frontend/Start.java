@@ -46,7 +46,7 @@ public class Start extends MainComponent
         CardLayout layout = new CardLayout();    
         List<String> highlightedTerms = new ArrayList<>();
         
-        frontend.state.clear();
+        frontend.getState().clear();
         frontend.setPanel (background());
         frontend.getPanel().setLayout (layout);
         frontend.getPanel().add (getPage1 (frame, layout, highlightedTerms), "page1");
@@ -222,7 +222,7 @@ public class Start extends MainComponent
                                         @Override
                                         protected void done()
                                         {
-                                            frontend.state.add (FrontendSharedData.Condition.FILE_EXISTED);
+                                            frontend.getState().add (FrontendSharedData.Condition.FILE_EXISTED);
                                             
                                             changeComponents (frame);
                                             
@@ -559,7 +559,7 @@ public class Start extends MainComponent
                                 @Override
                                 protected void done()
                                 {
-                                    frontend.state.remove (FrontendSharedData.Condition.FILE_EXISTED);
+                                    frontend.getState().remove (FrontendSharedData.Condition.FILE_EXISTED);
                                     
                                     changeComponents (frame);
                                     
@@ -655,18 +655,18 @@ public class Start extends MainComponent
             backend.setChoices (QuickProcessor.triggeredChoice (backend, highlightedTerms));
             backend.setSize (backend.getAnswers().size());
             
-            if (frontend.state.contains (FrontendSharedData.Condition.FILE_EXISTED))
+            if (frontend.getState().contains (FrontendSharedData.Condition.FILE_EXISTED))
             {
                 if (backend.getSize() > 99)
                 {
-                    frontend.state.add (FrontendSharedData.Condition.TOO_LARGE);
+                    frontend.getState().add (FrontendSharedData.Condition.TOO_LARGE);
                 
                     throw new Exception();
                 }
             
                 if (backend.getSize() < 10)
                 {
-                    frontend.state.add (FrontendSharedData.Condition.TOO_SMALL);
+                    frontend.getState().add (FrontendSharedData.Condition.TOO_SMALL);
                
                     throw new Exception();
                 }
@@ -1178,6 +1178,8 @@ public class Start extends MainComponent
             @Override
             public void mouseEntered (MouseEvent e)
             {
+                if (frame.getLayeredPane().getComponentCountInLayer (JLayeredPane.POPUP_LAYER) > 0) return;
+                
                 ImageIcon decoratorImage = Worker.getDecoratorImage ("/quiz_generator/Design/125.png", 229, 86);
                 decorators[0].setIcon (decoratorImage);
             }
@@ -1185,13 +1187,17 @@ public class Start extends MainComponent
             @Override
             public void mouseExited (MouseEvent e)
             {
+                if (frame.getLayeredPane().getComponentCountInLayer (JLayeredPane.POPUP_LAYER) > 0) return;
+                
                 ImageIcon decoratorImage = Worker.getDecoratorImage ("/quiz_generator/Design/124.png", 229, 86);
                 decorators[0].setIcon (decoratorImage);
             }
             
             @Override
             public void mousePressed (MouseEvent e)
-            {     
+            {
+                if (!input.isEditable()) return;
+                
                 frontend.setName (input.getText().toUpperCase().trim());
                 
                 if ((frontend.getName().equalsIgnoreCase ("Your username.") && input.getForeground().equals (Color.GRAY)) || frontend.getName().isEmpty())
@@ -1220,6 +1226,9 @@ public class Start extends MainComponent
                 }
                 else
                 {
+                    decorators[1].setVisible (false);
+                    notifText.setVisible (false);
+                    
                     input.setEditable (false);
                     input.setFocusable (false);
                     
@@ -1229,7 +1238,7 @@ public class Start extends MainComponent
                     
                     for (String name : names)
                     {
-                        if (frontend.getName().equals (name))
+                        if (frontend.getName().equalsIgnoreCase (name.trim()))
                         {
                             nameExists = true;
                             
@@ -1239,7 +1248,7 @@ public class Start extends MainComponent
                     
                     if (!nameExists)
                     {
-                        Database.appendForLeaderboard (frontend.getName(), String.valueOf (backend.getScore()), String.valueOf (backend.getQuestions().size()));
+                        Database.appendForLeaderboard (frontend.getName(), String.valueOf (backend.getScore()));
                         Database.appendForScoreHistory (frontend.getName(), String.valueOf (backend.getScore()), String.valueOf (backend.getQuestions().size()));
                         
                         new SwingWorker<Void, Void>()
@@ -1272,7 +1281,12 @@ public class Start extends MainComponent
                     }
                     else
                     {
-                        frontend.state.add (FrontendSharedData.Condition.IS_OVERWRITE);
+                        if (frame.getLayeredPane().getComponentCountInLayer (JLayeredPane.POPUP_LAYER) > 0) return;
+                        
+                        ImageIcon decoratorImage = Worker.getDecoratorImage ("/quiz_generator/Design/125.png", 229, 86);
+                        decorators[0].setIcon (decoratorImage);
+                        
+                        frontend.getState().add (FrontendSharedData.Condition.IS_OVERWRITE);
                         
                         new SwingWorker<Void, Void>()
                         {
@@ -1289,6 +1303,19 @@ public class Start extends MainComponent
                             }
                             
                         }.execute();
+                        
+                        javax.swing.Timer watcher = new javax.swing.Timer (100, e_2 ->
+                        {
+                            if (frame.getLayeredPane().getComponentCountInLayer (JLayeredPane.POPUP_LAYER) == 0)
+                            {
+                                decorators[0].setIcon (Worker.getDecoratorImage ("/quiz_generator/Design/124.png", 229, 86));
+                                
+                                ((javax.swing.Timer) e_2.getSource()).stop();
+                            }
+                            
+                        });
+                        
+                        watcher.start();
                     }
                 }
             }

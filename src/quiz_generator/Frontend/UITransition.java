@@ -11,7 +11,7 @@ class UITransition extends MainComponent
 {
     // CONSTRUCTOR
     
-    UITransition (BackendSharedData backend, FrontendSharedData frontend)
+    UITransition (Backend backend, Frontend frontend)
     {
         super (backend, frontend);
     }
@@ -121,7 +121,7 @@ class UITransition extends MainComponent
             "<html><div style='text-align: center;'>Extracting main topics</div></html>", 
            "<html><div style='text-align: center;'>Deep relaxation</div></html>", 
            "<html><div style='text-align: center;'>Choose wisely</div></html>",
-        "<html><div style='text-align: center;'>Focus lock in</div></html>",
+        "<html><div style='text-align: center;'>Focus locked in</div></html>",
         "<html><div style='text-align: center;'>Having fun</div></html>"};
         
         JLabel phraseLabel = new JLabel (loadingPhrases[0], SwingConstants.CENTER);
@@ -231,7 +231,7 @@ class UITransition extends MainComponent
     
     void resultCheckerScreen (JFrame frame)
     {
-        int delay = ((!frontend.state.contains (FrontendSharedData.Condition.CORRECT) || frontend.state.contains (FrontendSharedData.Condition.CORRECT)) && !frontend.state.contains (FrontendSharedData.Condition.TIMEOUT)) ? 500 : 0;
+        int delay = ((!frontend.getState().contains (FrontendSharedData.Condition.CORRECT) || frontend.getState().contains (FrontendSharedData.Condition.CORRECT)) && !frontend.getState().contains (FrontendSharedData.Condition.TIMEOUT)) ? 500 : 0;
         
         javax.swing.Timer delayTimer = new javax.swing.Timer (delay, e ->
         {
@@ -256,9 +256,9 @@ class UITransition extends MainComponent
         
             final JLabel gifLabel;
         
-            if (!frontend.state.contains (FrontendSharedData.Condition.TIMEOUT))
+            if (!frontend.getState().contains (FrontendSharedData.Condition.TIMEOUT))
             {
-                if (!frontend.state.contains (FrontendSharedData.Condition.CORRECT))
+                if (!frontend.getState().contains (FrontendSharedData.Condition.CORRECT))
                 {
                     gifLabel = new JLabel (Worker.getGif (paths[1], 1669, 864));
                     gifLabel.setBounds (Worker.getBounds (125, 108, 1669, 864));
@@ -270,7 +270,7 @@ class UITransition extends MainComponent
                     
                     backend.setScore (backend.getScore() + 1);
                     
-                    frontend.state.remove (FrontendSharedData.Condition.CORRECT);
+                    frontend.getState().remove (FrontendSharedData.Condition.CORRECT);
                 }
             }
             else
@@ -278,7 +278,7 @@ class UITransition extends MainComponent
                 gifLabel = new JLabel (Worker.getGif (paths[2], 1658, 864));
                 gifLabel.setBounds (Worker.getBounds (130, 108, 1658, 864));
             
-                frontend.state.remove (FrontendSharedData.Condition.TIMEOUT);
+                frontend.getState().remove (FrontendSharedData.Condition.TIMEOUT);
             }
         
             gifPanel.add (gifLabel);

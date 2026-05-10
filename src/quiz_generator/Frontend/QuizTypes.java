@@ -19,7 +19,7 @@ class QuizTypes extends MainComponent
     
     // CONSTRUCTOR
     
-    QuizTypes (BackendSharedData backend, FrontendSharedData frontend, UITransition transition, QuizConfigurator configurator, Start start)
+    QuizTypes (Backend backend, Frontend frontend, UITransition transition, QuizConfigurator configurator, Start start)
     {
         super (backend, frontend);
         
@@ -72,7 +72,7 @@ class QuizTypes extends MainComponent
             }.execute();
         }
         
-        if (frontend.state.contains (FrontendSharedData.Condition.IS_REUSED))
+        if (frontend.getState().contains (FrontendSharedData.Condition.IS_REUSED))
         {
             try
             {
@@ -87,7 +87,7 @@ class QuizTypes extends MainComponent
             }
         }
         
-        if (!frontend.state.contains (FrontendSharedData.Condition.IS_REUSED)) frontend.state.add (FrontendSharedData.Condition.IS_REUSED);
+        if (!frontend.getState().contains (FrontendSharedData.Condition.IS_REUSED)) frontend.getState().add (FrontendSharedData.Condition.IS_REUSED);
         
         JLayeredPane layeredPane = new JLayeredPane();
         layeredPane.setBounds (Worker.getBounds (0, 0, 1920, 1080));
@@ -258,7 +258,7 @@ class QuizTypes extends MainComponent
                                 ImageIcon decoratorImage = Worker.getDecoratorImage ("/quiz_generator/Design/64.png", 481, 117);
                                 decorators[j].setIcon (decoratorImage);
                                 
-                                frontend.state.add (FrontendSharedData.Condition.CORRECT);
+                                frontend.getState().add (FrontendSharedData.Condition.CORRECT);
                                         
                                 backend.getIndex()[2]++;
                                         
@@ -536,8 +536,8 @@ class QuizTypes extends MainComponent
         blankAnswer.setBounds (Worker.getBounds (480, 590, 982, 245));
         
         JTextField input = new JTextField();
-        input.setText ("Your answer here...");
         input.setFont (Worker.getFont ("/quiz_generator/Font/Alice-Regular.ttf", 1, 39.8f));
+        input.setText ("Your answer here...");
         input.setForeground (Color.GRAY);
         input.setBorder (null);
         input.setOpaque (false);
@@ -606,7 +606,7 @@ class QuizTypes extends MainComponent
                                 typingIcon.setVisible (false);
                                 
                                 frontend.getClock().stop();
-                                frontend.state.add (FrontendSharedData.Condition.CORRECT);
+                                frontend.getState().add (FrontendSharedData.Condition.CORRECT);
                                 
                                 backend.getIndex()[2]++;
                                 backend.setSize (backend.getSize() - 1);
@@ -1009,7 +1009,7 @@ class QuizTypes extends MainComponent
                                 ImageIcon decoratorImage = Worker.getDecoratorImage ("/quiz_generator/Design/108.png", 502, 141);
                                 decorators[j].setIcon (decoratorImage);
                                         
-                                frontend.state.add (FrontendSharedData.Condition.CORRECT);
+                                frontend.getState().add (FrontendSharedData.Condition.CORRECT);
                                 
                                 backend.getIndex()[2]++;
                                 backend.setSize (backend.getSize() - 1);
@@ -1185,7 +1185,7 @@ class QuizTypes extends MainComponent
                                 ImageIcon decoratorImage = Worker.getDecoratorImage ("/quiz_generator/Design/112.png", 519, 153);
                                 decorators[j].setIcon (decoratorImage);
                                 
-                                frontend.state.add (FrontendSharedData.Condition.CORRECT);
+                                frontend.getState().add (FrontendSharedData.Condition.CORRECT);
                                 
                                 backend.getIndex()[2]++;
                                 backend.setSize (backend.getSize() - 1);

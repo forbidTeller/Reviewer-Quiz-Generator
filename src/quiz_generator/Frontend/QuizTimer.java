@@ -19,7 +19,7 @@ class QuizTimer extends MainComponent
     
      // CONSTRUCTOR
     
-    public QuizTimer (BackendSharedData backend, FrontendSharedData frontend, QuizTypes quizTypes, UITransition transition, Correctors correctors)
+    QuizTimer (Backend backend, Frontend frontend, QuizTypes quizTypes, UITransition transition, Correctors correctors)
     {
         super (backend, frontend);
         
@@ -295,7 +295,7 @@ class QuizTimer extends MainComponent
             if (total[0] < -1)
             {
                 frontend.getClock().stop();
-                frontend.state.add (FrontendSharedData.Condition.TIMEOUT);
+                frontend.getState().add (FrontendSharedData.Condition.TIMEOUT);
                 
                 backend.getIndex()[2]++;
                 

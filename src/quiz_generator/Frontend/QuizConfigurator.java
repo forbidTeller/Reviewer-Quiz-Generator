@@ -14,11 +14,12 @@ class QuizConfigurator extends MainComponent
     private final Start start;
     private Leaderboard leaderboard;
     
-    private JTextField lockedInput = null;
+    private JTextField input = null;
+    private String name;
     
     // CONSTRUCTOR
     
-    QuizConfigurator (BackendSharedData backend, FrontendSharedData frontend, UITransition transition, Start start)
+    QuizConfigurator (Backend backend, Frontend frontend, UITransition transition, Start start)
     {
         super (backend, frontend);
         
@@ -52,7 +53,7 @@ class QuizConfigurator extends MainComponent
         String[] decoratorImageName = {"/quiz_generator/Design/17.png", "/quiz_generator/Design/21.png"};
         int[] x = {895, 654, 512};
         
-        if (frontend.state.contains (FrontendSharedData.Condition.FILE_EXISTED))
+        if (frontend.getState().contains (FrontendSharedData.Condition.FILE_EXISTED))
         {
             decoratorImageName[0] = "/quiz_generator/Design/18.png";
             
@@ -60,7 +61,7 @@ class QuizConfigurator extends MainComponent
             x[2] = 482;
         }
         
-        if (frontend.state.contains (FrontendSharedData.Condition.TOO_SMALL))
+        if (frontend.getState().contains (FrontendSharedData.Condition.TOO_SMALL))
         {
             decoratorImageName[0] = "/quiz_generator/Design/19.png";
                 
@@ -68,7 +69,7 @@ class QuizConfigurator extends MainComponent
             x[2] = 496;
         }
             
-        if (frontend.state.contains (FrontendSharedData.Condition.TOO_LARGE))
+        if (frontend.getState().contains (FrontendSharedData.Condition.TOO_LARGE))
         {
             decoratorImageName[0] = "/quiz_generator/Design/20.png";
                 
@@ -141,9 +142,9 @@ class QuizConfigurator extends MainComponent
                     @Override
                     protected void done()
                     {
-                        frontend.state.remove (FrontendSharedData.Condition.FILE_EXISTED);
-                        frontend.state.remove (FrontendSharedData.Condition.TOO_SMALL);
-                        frontend.state.remove (FrontendSharedData.Condition.TOO_LARGE);
+                        frontend.getState().remove (FrontendSharedData.Condition.FILE_EXISTED);
+                        frontend.getState().remove (FrontendSharedData.Condition.TOO_SMALL);
+                        frontend.getState().remove (FrontendSharedData.Condition.TOO_LARGE);
                         
                         changeComponents (frame);
                         
@@ -182,7 +183,7 @@ class QuizConfigurator extends MainComponent
         String[] decoratorImageName = {"/quiz_generator/Design/52.png", "/quiz_generator/Design/53.png", "/quiz_generator/Design/55.png"};
         int[] x = {1041, 946, 476, 80};
         
-        if (frontend.state.contains (FrontendSharedData.Condition.IS_TEXT))
+        if (frontend.getState().contains (FrontendSharedData.Condition.IS_TEXT))
         {
             decoratorImageName[0] = "/quiz_generator/Design/57.png";
             decoratorImageName[1] = "/quiz_generator/Design/58.png";
@@ -209,7 +210,7 @@ class QuizConfigurator extends MainComponent
                     
                     x[0] = 153;
                     x[1] = 39;
-                    x[2] = (frontend.state.contains (FrontendSharedData.Condition.IS_TEXT)) ? 767 : 1077;
+                    x[2] = (frontend.getState().contains (FrontendSharedData.Condition.IS_TEXT)) ? 767 : 1077;
                     x[3] = 665;             
                    
                 }
@@ -235,7 +236,7 @@ class QuizConfigurator extends MainComponent
             }
         }
         
-        if (frontend.state.contains (FrontendSharedData.Condition.IS_TEXT))
+        if (frontend.getState().contains (FrontendSharedData.Condition.IS_TEXT))
         {
             hitboxes[1].addMouseListener (new MouseAdapter()
             {
@@ -269,7 +270,7 @@ class QuizConfigurator extends MainComponent
                         {
                             frame.getLayeredPane().remove (layeredPane);
                             
-                            frontend.state.remove (FrontendSharedData.Condition.IS_TEXT);
+                            frontend.getState().remove (FrontendSharedData.Condition.IS_TEXT);
                                         
                             instructionPanel (frame);
                         }
@@ -313,7 +314,7 @@ class QuizConfigurator extends MainComponent
                         {
                             frame.getLayeredPane().remove (layeredPane);
                             
-                            frontend.state.add (FrontendSharedData.Condition.IS_TEXT);
+                            frontend.getState().add (FrontendSharedData.Condition.IS_TEXT);
                             
                             instructionPanel (frame);
                         }
@@ -354,7 +355,7 @@ class QuizConfigurator extends MainComponent
                     @Override
                     protected void done()
                     {
-                        if (frontend.state.contains (FrontendSharedData.Condition.IS_TEXT)) frontend.state.remove (FrontendSharedData.Condition.IS_TEXT);
+                        if (frontend.getState().contains (FrontendSharedData.Condition.IS_TEXT)) frontend.getState().remove (FrontendSharedData.Condition.IS_TEXT);
                         
                         frame.getLayeredPane().remove (layeredPane);
                         frame.getLayeredPane().revalidate();
@@ -546,7 +547,7 @@ class QuizConfigurator extends MainComponent
                                 {
                                     frame.getLayeredPane().remove (layeredPane);
                                     
-                                    frontend.state.add (FrontendSharedData.Condition.QUIT_IS_CLICKED);
+                                    frontend.getState().add (FrontendSharedData.Condition.QUIT_IS_CLICKED);
                                     
                                     notificationPanel (frame, layout, highlightedTerms);
                                 }
@@ -588,7 +589,14 @@ class QuizConfigurator extends MainComponent
     
     void notificationPanel (JFrame frame, CardLayout layout, List<String> highlightedTerms, JTextField input)
     {
-        lockedInput = input;
+        this.input = input;
+        
+        notificationPanel (frame, layout, highlightedTerms);
+    }
+    
+    void notificationPanel (JFrame frame, CardLayout layout, List<String> highlightedTerms, String name)
+    {
+        this.name = name;
         
         notificationPanel (frame, layout, highlightedTerms);
     }
@@ -601,7 +609,7 @@ class QuizConfigurator extends MainComponent
         String[] decoratorImageName = {"", "/quiz_generator/Design/93.png", "/quiz_generator/Design/95.png"};
         int[] x = {1709, 893};
         
-        decoratorImageName[0] = ((frontend.state.contains (FrontendSharedData.Condition.RETRY_IS_CLICKED)) ?  "/quiz_generator/Design/91.png" : (frontend.state.contains (FrontendSharedData.Condition.EXIT_IS_CLICKED)) ? "/quiz_generator/Design/92.png" : (frontend.state.contains (FrontendSharedData.Condition.IS_OVERWRITE)) ? "/quiz_generator/Design/136.png" : "/quiz_generator/Design/90.png");
+        decoratorImageName[0] = ((frontend.getState().contains (FrontendSharedData.Condition.RETRY_IS_CLICKED)) ?  "/quiz_generator/Design/91.png" : (frontend.getState().contains (FrontendSharedData.Condition.EXIT_IS_CLICKED)) ? "/quiz_generator/Design/92.png" : (frontend.getState().contains (FrontendSharedData.Condition.IS_OVERWRITE)) ? "/quiz_generator/Design/136.png" : (frontend.getState().contains (FrontendSharedData.Condition.DELETE_IS_CLICKED)) ? "/quiz_generator/Design/186.png" : "/quiz_generator/Design/90.png");
         
         ImageIcon[] icons;
         
@@ -709,7 +717,7 @@ class QuizConfigurator extends MainComponent
         {
             final int j = i;
             
-            if (frontend.state.contains (FrontendSharedData.Condition.QUIT_IS_CLICKED))
+            if (frontend.getState().contains (FrontendSharedData.Condition.QUIT_IS_CLICKED))
             {
                 switch(i)
                 {
@@ -723,6 +731,8 @@ class QuizConfigurator extends MainComponent
                                 if (mouseLock[0]) return;
                                 
                                 mouseLock[0] = true;
+                                
+                                if (frontend.getClock() != null) frontend.getClock().stop();
                                 
                                 frame.getLayeredPane().remove (layeredPane);
                                     
@@ -743,8 +753,8 @@ class QuizConfigurator extends MainComponent
                                     @Override
                                     protected void done()
                                     {
-                                        frontend.state.clear();
-                                        frontend.state.add (FrontendSharedData.Condition.FILE_EXISTED);
+                                        frontend.getState().clear();
+                                        frontend.getState().add (FrontendSharedData.Condition.FILE_EXISTED);
                                         
                                         changeComponents (frame);
                                         
@@ -790,7 +800,7 @@ class QuizConfigurator extends MainComponent
                                     {
                                         frame.getLayeredPane().remove (layeredPane);
                                         
-                                        frontend.state.remove (FrontendSharedData.Condition.QUIT_IS_CLICKED);
+                                        frontend.getState().remove (FrontendSharedData.Condition.QUIT_IS_CLICKED);
                                         
                                         pausePanel (frame, layout, highlightedTerms);
                                     }
@@ -803,7 +813,7 @@ class QuizConfigurator extends MainComponent
                 }
             }
             
-            if (frontend.state.contains (FrontendSharedData.Condition.IS_OVERWRITE))
+            if (frontend.getState().contains (FrontendSharedData.Condition.IS_OVERWRITE))
             {
                 switch(i)
                 {
@@ -820,7 +830,7 @@ class QuizConfigurator extends MainComponent
                                 
                                 frame.getLayeredPane().remove (layeredPane);
                                 
-                                Database.overwriteForLeaderboard (frontend.getName(), String.valueOf (backend.getScore()), String.valueOf (backend.getQuestions().size()));
+                                Database.overwriteForLeaderboard (frontend.getName(), String.valueOf (backend.getScore()));
                                 Database.appendForScoreHistory (frontend.getName(), String.valueOf (backend.getScore()), String.valueOf (backend.getQuestions().size()));
                                                                 
                                 new SwingWorker<Void, Void>()
@@ -834,7 +844,7 @@ class QuizConfigurator extends MainComponent
                                     @Override
                                     protected void done()
                                     {
-                                        frontend.state.remove (FrontendSharedData.Condition.IS_OVERWRITE);
+                                        frontend.getState().remove (FrontendSharedData.Condition.IS_OVERWRITE);
                                         
                                         changeComponents (frame);
                                         
@@ -878,13 +888,13 @@ class QuizConfigurator extends MainComponent
                                     @Override
                                     protected void done()
                                     {
-                                        frontend.state.remove (FrontendSharedData.Condition.IS_OVERWRITE);
+                                        frontend.getState().remove (FrontendSharedData.Condition.IS_OVERWRITE);
                                         
-                                        if (lockedInput != null)
+                                        if (input != null)
                                         {
-                                            lockedInput.setEditable (true);
-                                            lockedInput.setFocusable (true);
-                                            lockedInput = null;
+                                            input.setEditable (true);
+                                            input.setFocusable (true);
+                                            input = null;
                                         }
                                         
                                         frame.getLayeredPane().remove (layeredPane);
@@ -900,7 +910,7 @@ class QuizConfigurator extends MainComponent
                 }
             }
             
-            if (frontend.state.contains (FrontendSharedData.Condition.RETRY_IS_CLICKED))
+            if (frontend.getState().contains (FrontendSharedData.Condition.RETRY_IS_CLICKED))
             {
                 switch(i)
                 {
@@ -934,8 +944,8 @@ class QuizConfigurator extends MainComponent
                                     @Override
                                     protected void done()
                                     {
-                                        frontend.state.clear();
-                                        frontend.state.add (FrontendSharedData.Condition.FILE_EXISTED);
+                                        frontend.getState().clear();
+                                        frontend.getState().add (FrontendSharedData.Condition.FILE_EXISTED);
                                         
                                         changeComponents (frame);
                                         
@@ -979,7 +989,7 @@ class QuizConfigurator extends MainComponent
                                     @Override
                                     protected void done()
                                     {
-                                        frontend.state.remove (FrontendSharedData.Condition.RETRY_IS_CLICKED);
+                                        frontend.getState().remove (FrontendSharedData.Condition.RETRY_IS_CLICKED);
                                         
                                         frame.getLayeredPane().remove (layeredPane);
                                         frame.getLayeredPane().revalidate();
@@ -994,7 +1004,7 @@ class QuizConfigurator extends MainComponent
                 }
             }
             
-            if (frontend.state.contains (FrontendSharedData.Condition.EXIT_IS_CLICKED))
+            if (frontend.getState().contains (FrontendSharedData.Condition.EXIT_IS_CLICKED))
             {
                 switch(i)
                 {
@@ -1052,7 +1062,84 @@ class QuizConfigurator extends MainComponent
                                     @Override
                                     protected void done()
                                     {
-                                        frontend.state.remove (FrontendSharedData.Condition.EXIT_IS_CLICKED);
+                                        frontend.getState().remove (FrontendSharedData.Condition.EXIT_IS_CLICKED);
+                                        
+                                        frame.getLayeredPane().remove (layeredPane);
+                                        frame.getLayeredPane().revalidate();
+                                        frame.getLayeredPane().repaint();
+                                    }
+                                    
+                                }.execute();
+                            }
+                            
+                        });
+                    }
+                }
+            }
+            
+            if (frontend.getState().contains (FrontendSharedData.Condition.DELETE_IS_CLICKED))
+            {
+                switch(i)
+                {
+                    case 1 ->
+                    {
+                        hitboxes[j].addMouseListener (new MouseAdapter()
+                        {
+                            @Override
+                            public void mousePressed (MouseEvent e)
+                            {
+                                if (mouseLock[0]) return;
+                                
+                                mouseLock[0] = true;
+                                    
+                                Database.clearForScoreHistory (name);
+                                
+                                new SwingWorker<Void, Void>()
+                                {
+                                    @Override
+                                    protected Void doInBackground() throws Exception
+                                    {
+                                        return null;
+                                    }
+                                    
+                                    @Override
+                                    protected void done()
+                                    {
+                                        frontend.getState().remove (FrontendSharedData.Condition.DELETE_IS_CLICKED);
+                                        
+                                        frame.getLayeredPane().remove (layeredPane);
+                                        
+                                        confirmedDeleted (frame, layout, highlightedTerms);
+                                    }
+                                    
+                                }.execute();
+                            }
+                            
+                        });
+                    }
+                    case 2 ->
+                    {
+                        hitboxes[j].addMouseListener (new MouseAdapter()
+                        {
+                            @Override
+                            public void mousePressed (MouseEvent e)
+                            {
+                                if (mouseLock[0]) return;
+                                
+                                mouseLock[0] = true;
+                                
+                                new SwingWorker<Void, Void>()
+                                {
+                                    @Override
+                                    protected Void doInBackground() throws Exception
+                                    {
+                                        return null;
+                                    }
+                                    
+                                    @Override
+                                    protected void done()
+                                    {
+                                        frontend.getState().remove (FrontendSharedData.Condition.DELETE_IS_CLICKED);
                                         
                                         frame.getLayeredPane().remove (layeredPane);
                                         frame.getLayeredPane().revalidate();
@@ -1082,6 +1169,124 @@ class QuizConfigurator extends MainComponent
         
         components.addAll (Arrays.asList (decorators));
         components.addAll (Arrays.asList (hitboxes));
+        
+        for (int i = 0; i < components.size(); i++)
+        {
+            layeredPane.add (components.get(i), Integer.valueOf(i));
+        }
+        
+        layeredPane.add (clickBlocker, Integer.valueOf(-1));
+        
+        frame.getLayeredPane().add (layeredPane, JLayeredPane.POPUP_LAYER);
+        frame.getLayeredPane().revalidate();
+        frame.getLayeredPane().repaint();
+    }
+    
+    void confirmedDeleted (JFrame frame, CardLayout layout, List<String> highlightedTerms)
+    {
+        JLayeredPane layeredPane = new JLayeredPane();
+        layeredPane.setBounds (Worker.getBounds (0, 0, 1920, 1080));
+        
+        String[] decoratorImageName = {"/quiz_generator/Design/187.png", "/quiz_generator/Design/188.png"};
+        int[] x = {1709, 893};
+        
+        ImageIcon[] icons;
+        
+        JLabel[] decorators = new JLabel[decoratorImageName.length];
+        
+        for (int i = 0; i < decoratorImageName.length; i++)
+        {
+            icons = Worker.getDecoratorImages (decoratorImageName, x[0], x[1]);
+            decorators[i] = new JLabel (icons[i]);
+            
+            switch(i)
+            {
+                case 0 ->
+                {
+                    decorators[i].setBounds (Worker.getBounds (115, 132, x[0], x[1]));
+                    
+                    x[0] = 566;
+                    x[1] = 101;
+                }
+                case 1 -> decorators[i].setBounds (Worker.getBounds (647, 570, x[0], x[1]));
+            }
+        }
+        
+        JLabel hitbox = new JLabel();
+        hitbox.setCursor (new Cursor (Cursor.HAND_CURSOR));
+        hitbox.setOpaque (false);
+        hitbox.setBounds (Worker.getBounds (647, 570, 566, 101));
+        
+        JPanel clickBlocker = new JPanel();
+        clickBlocker.setBackground (new Color (0, 0, 0, 150));
+        clickBlocker.setBounds (Worker.getBounds (0, 0, 1920, 1080));
+        
+        hitbox.addMouseListener (new MouseAdapter()
+        {
+            @Override
+            public void mouseEntered (MouseEvent e)
+            {               
+                ImageIcon decoratorImage = Worker.getDecoratorImage ("/quiz_generator/Design/189.png", 566, 101);
+                decorators[1].setIcon (decoratorImage);
+            }
+            
+            @Override
+            public void mouseExited (MouseEvent e)
+            {                       
+                ImageIcon decoratorImage = Worker.getDecoratorImage ("/quiz_generator/Design/188.png", 566, 101);
+                decorators[1].setIcon (decoratorImage);
+            }
+            
+            @Override
+            public void mousePressed (MouseEvent e)
+            {                             
+                frame.getLayeredPane().remove (layeredPane);
+                
+                new SwingWorker<Void, Void>()
+                {
+                    @Override
+                    protected Void doInBackground() throws Exception
+                    {
+                        return null;
+                    }
+                    
+                    @Override
+                    protected void done()
+                    {
+                        changeComponents (frame);
+                        
+                        frontend.setPanel (null);
+                        frontend.setNextPanel (FrontendSharedData.Page.SCORE_HISTORY_PAGE_1);
+                        frontend.setPanel (background());
+                        frontend.getPanel().setLayout (layout);
+                        frontend.getPanel().add (leaderboard.userListSearching (frame, layout, highlightedTerms), "userListSearching");
+                        
+                        layout.show (frontend.getPanel(), "userListSearching");
+                        
+                        frame.add (frontend.getPanel());
+                        frame.revalidate();
+                        frame.repaint();
+                    }
+                    
+                }.execute();
+            }
+            
+        });
+        
+        clickBlocker.addMouseListener (new MouseAdapter()
+        {
+            @Override
+            public void mousePressed (MouseEvent e)
+            {
+                e.consume();
+            }
+            
+        });
+        
+        List<JComponent> components = new ArrayList<>();
+        
+        components.addAll (Arrays.asList (decorators));
+        components.add (hitbox);
         
         for (int i = 0; i < components.size(); i++)
         {

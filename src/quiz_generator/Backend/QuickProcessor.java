@@ -4,7 +4,7 @@ import java.util.List;
 
 public class QuickProcessor 
 {
-    public static String[] triggeredChoice (BackendSharedData backend, List<String> highlightedTerms) throws Exception
+    public static String[] triggeredChoice (Backend backend, List<String> highlightedTerms) throws Exception
     {
         return switch (backend.getIndex()[1])
         {
@@ -15,7 +15,7 @@ public class QuickProcessor
         };
     }
     
-    public static String addLineBreaks (BackendSharedData backend, String text)
+    public static String addLineBreaks (Backend backend, String text)
     {
         String[] words = text.split ("\\s+");
         
