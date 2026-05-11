@@ -852,20 +852,24 @@ public class Database
         }
         else
         {
-            for (int i = 0; i < dbNames.size(); i++)
+            int dbIndex = 0;
+            
+            for (int i = 0; i < csvNames.size() && dbIndex < dbNames.size(); i++)
             {
-                if (!dbNames.get(i).equals (csvNames.get(i)) || !dbDates.get(i).equals (csvDates.get(i)))
-                {
-                    csvTampered = true;
-                    
-                    break;
-                }
+                String dbName = dbNames.get (dbIndex), dbScore = dbScores.get (dbIndex), dbTotalScore = dbTotalScores.get (dbIndex), dbDate = dbDates.get (dbIndex);
+                String csvName = csvNames.get(i), csvScore = csvScores.get(i), csvTotalScore = csvTotalScores.get(i), csvDate = csvDates.get(i);
                 
-                if (!dbScores.get(i).equals (csvScores.get(i)) || !dbTotalScores.get(i).equals (csvTotalScores.get(i)))
+                if (dbName.equals (csvName) && dbDate.equals (csvDate))
                 {
-                    if (csvScores.get(i).equals ("-2") && csvTotalScores.get(i).equals ("-2"))
+                    if (dbScore.equals (csvScore) && dbTotalScore.equals (csvTotalScore))
+                    {
+                        dbIndex++;
+                    }
+                    else if (csvScore.equals ("-2") && csvTotalScore.equals ("-2"))
                     {
                         dbOutdated = true;
+                        
+                        dbIndex++;
                     }
                     else
                     {
@@ -876,7 +880,15 @@ public class Database
                 }
             }
             
-            if (!csvTampered && csvNames.size() > dbNames.size()) dbOutdated = true;
+            if (csvTampered || dbIndex < dbNames.size())
+            {
+                csvTampered = true;
+                dbOutdated = false;
+            }
+            else if (csvNames.size() > dbNames.size())
+            {
+                dbOutdated = true;
+            }
         }
         
         if (csvTampered)

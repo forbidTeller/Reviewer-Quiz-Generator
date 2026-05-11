@@ -297,10 +297,6 @@ class QuizTimer extends MainComponent
                 frontend.getClock().stop();
                 frontend.getState().add (FrontendSharedData.Condition.TIMEOUT);
                 
-                backend.getIndex()[2]++;
-                
-                if (backend.getIndex()[1] == 2 || backend.getIndex()[1] == 3) backend.setSize (backend.getSize() - 1);
-                
                 transition.resultCheckerScreen (frame);
                 
                 new SwingWorker<Void, Void>()
@@ -316,27 +312,38 @@ class QuizTimer extends MainComponent
                     @Override
                     protected void done()
                     {
-                        changeComponents (frame);
-                        
-                        frontend.setPanel (null);
-                        frontend.setNextPanel (FrontendSharedData.Page.TEST_PAGE);
-                        frontend.setPanel (background());
-                        frontend.getPanel().setLayout (layout);
-                        
-                        String label = (backend.getIndex()[1] == 1) ? "correctAnswerMultipleChoice" : (backend.getIndex()[1] == 2) ? "correctAnswerIdentification" : "correctAnswerTrueFalse";
-                        
-                        switch (backend.getIndex()[1])
+                        try
                         {
-                            case 1 -> frontend.getPanel().add (correctors.correctAnswerMultipleChoice (frame, layout, highlightedTerms), label);
-                            case 2 -> frontend.getPanel().add (correctors.correctAnswerIdentification (frame, layout, highlightedTerms), label);
-                            case 3 -> frontend.getPanel().add (correctors.correctAnswerTrueFalse (frame, layout, highlightedTerms), label);
+                            backend.getIndex()[2]++;
+                
+                            if (backend.getIndex()[1] == 2 || backend.getIndex()[1] == 3) backend.setSize (backend.getSize() - 1);
+                        
+                            changeComponents (frame);
+                        
+                            frontend.setPanel (null);
+                            frontend.setNextPanel (FrontendSharedData.Page.TEST_PAGE);
+                            frontend.setPanel (background());
+                            frontend.getPanel().setLayout (layout);
+                        
+                            String label = (backend.getIndex()[1] == 1) ? "correctAnswerMultipleChoice" : (backend.getIndex()[1] == 2) ? "correctAnswerIdentification" : "correctAnswerTrueFalse";
+                        
+                            switch (backend.getIndex()[1])
+                            {
+                                case 1 -> frontend.getPanel().add (correctors.correctAnswerMultipleChoice (frame, layout, highlightedTerms), label);
+                                case 2 -> frontend.getPanel().add (correctors.correctAnswerIdentification (frame, layout, highlightedTerms), label);
+                                case 3 -> frontend.getPanel().add (correctors.correctAnswerTrueFalse (frame, layout, highlightedTerms), label);
+                            }
+                                   
+                            layout.show (frontend.getPanel(), label);
+                        
+                            frame.add (frontend.getPanel());
+                            frame.revalidate();
+                            frame.repaint();
                         }
-                        
-                        layout.show (frontend.getPanel(), label);
-                        
-                        frame.add (frontend.getPanel());
-                        frame.revalidate();
-                        frame.repaint();
+                        catch (Exception e)
+                        {
+                            // Ignore
+                        }
                     }
                     
                 }.execute();

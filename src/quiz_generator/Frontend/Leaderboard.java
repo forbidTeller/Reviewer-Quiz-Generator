@@ -92,12 +92,17 @@ class Leaderboard extends MainComponent
         {
             try
             {
-                int currentScore = Integer.parseInt (scores.get(i));
-            
-                if (currentScore > 0)
+                String currentName = names.get(i).trim(), currentScoreStr = scores.get(i).trim();
+                
+                if (!currentName.isEmpty() && !currentName.equals ("-1") && !currentName.equals ("WIPED") && !currentScoreStr.equals ("-1"))
                 {
-                    validNames.add (names.get(i));
-                    validScores.add (scores.get(i));
+                    int currentScore = Integer.parseInt (currentScoreStr);
+                    
+                    if (currentScore > 0)
+                    {
+                        validNames.add (currentName);
+                        validScores.add (currentScoreStr);
+                    }
                 }
             }
             catch (NumberFormatException e)
@@ -400,6 +405,27 @@ class Leaderboard extends MainComponent
         JScrollPane[] scrollPane = new JScrollPane[1];
         
         List<String> names = Database.loadForScoreHistory ("USER", null, null);
+        
+        for (int i = names.size() - 1; i >= 0; i--)
+        {
+            String name = names.get(i);
+            
+            if (name == null)
+            {
+                names.remove(i);
+            }
+            else
+            {
+                if (name.trim().isEmpty() || name.trim().equals ("-1") || name.trim().equals ("-2") || name.trim().equals ("WIPED"))
+                {
+                    names.remove(i);
+                }
+                else
+                {
+                    names.set (i, name);
+                }
+            }
+        }
         
         if (names.isEmpty())
         {
@@ -930,6 +956,11 @@ class Leaderboard extends MainComponent
                         @Override
                         public void mousePressed (MouseEvent e)
                         {
+                            toggle[0] = false;
+                            
+                            ImageIcon decoratorImage = Worker.getDecoratorImage ("/quiz_generator/Design/160.png", 305, 30);
+                            decorators[0].setIcon (decoratorImage);
+                            
                             dropLabel.setText ("ALL");
                             dropLabel.setFont (Worker.getFont ("/quiz_generator/Font/Arimo-Regular.ttf", 1, 19.4f));
                             dropLabel.setForeground (Color.BLACK);
@@ -977,6 +1008,11 @@ class Leaderboard extends MainComponent
                         @Override
                         public void mousePressed (MouseEvent e)
                         {
+                            toggle[0] = false;
+                            
+                            ImageIcon decoratorImage = Worker.getDecoratorImage ("/quiz_generator/Design/160.png", 305, 30);
+                            decorators[0].setIcon (decoratorImage);
+                            
                             dropLabel.setText ("DATE");
                             dropLabel.setFont (Worker.getFont ("/quiz_generator/Font/Arimo-Regular.ttf", 1, 19.4f));
                             dropLabel.setForeground (Color.BLACK);
@@ -1081,6 +1117,11 @@ class Leaderboard extends MainComponent
                         @Override
                         public void mousePressed (MouseEvent e)
                         {
+                            toggle[0] = false;
+                            
+                            ImageIcon decoratorImage = Worker.getDecoratorImage ("/quiz_generator/Design/160.png", 305, 30);
+                            decorators[0].setIcon (decoratorImage);
+                            
                             dropLabel.setText ("HIGHEST-LOWEST SCORE");
                             dropLabel.setFont (Worker.getFont ("/quiz_generator/Font/Arimo-Regular.ttf", 1, 12.4f));
                             dropLabel.setForeground (Color.BLACK);
@@ -1187,6 +1228,11 @@ class Leaderboard extends MainComponent
                         @Override
                         public void mousePressed (MouseEvent e)
                         {
+                            toggle[0] = false;
+                            
+                            ImageIcon decoratorImage = Worker.getDecoratorImage ("/quiz_generator/Design/160.png", 305, 30);
+                            decorators[0].setIcon (decoratorImage);
+                            
                             dropLabel.setText ("LOWEST-HIGHEST SCORE");
                             dropLabel.setFont (Worker.getFont ("/quiz_generator/Font/Arimo-Regular.ttf", 1, 12.4f));
                             dropLabel.setForeground (Color.BLACK);
@@ -1241,7 +1287,7 @@ class Leaderboard extends MainComponent
                             {
                                 String firstScore = records.get(1);
                                 
-                                for (int i = 4; i < records.size(); i++)
+                                for (int i = 4; i < records.size(); i += 3)
                                 {
                                     if (!records.get(i).equals (firstScore))
                                     {
@@ -1293,6 +1339,11 @@ class Leaderboard extends MainComponent
                         @Override
                         public void mousePressed (MouseEvent e)
                         {
+                            toggle[0] = false;
+                            
+                            ImageIcon decoratorImage = Worker.getDecoratorImage ("/quiz_generator/Design/160.png", 305, 30);
+                            decorators[0].setIcon (decoratorImage);
+                            
                             dropLabel.setText ("PERFECT SCORE");
                             dropLabel.setFont (Worker.getFont ("/quiz_generator/Font/Arimo-Regular.ttf", 1, 16.4f));
                             dropLabel.setForeground (Color.BLACK);
@@ -1370,6 +1421,11 @@ class Leaderboard extends MainComponent
                         @Override
                         public void mousePressed (MouseEvent e)
                         {
+                            toggle[0] = false;
+                            
+                            ImageIcon decoratorImage = Worker.getDecoratorImage ("/quiz_generator/Design/160.png", 305, 30);
+                            decorators[0].setIcon (decoratorImage);
+                            
                             dropLabel.setText ("PASSED");
                             dropLabel.setFont (Worker.getFont ("/quiz_generator/Font/Arimo-Regular.ttf", 1, 19.4f));
                             dropLabel.setForeground (Color.BLACK);
@@ -1447,6 +1503,11 @@ class Leaderboard extends MainComponent
                         @Override
                         public void mousePressed (MouseEvent e)
                         {
+                            toggle[0] = false;
+                            
+                            ImageIcon decoratorImage = Worker.getDecoratorImage ("/quiz_generator/Design/160.png", 305, 30);
+                            decorators[0].setIcon (decoratorImage);
+                            
                             dropLabel.setText ("NEEDS IMPROVEMENT");
                             dropLabel.setFont (Worker.getFont ("/quiz_generator/Font/Arimo-Regular.ttf", 1, 14.4f));
                             dropLabel.setForeground (Color.BLACK);
@@ -1511,6 +1572,8 @@ class Leaderboard extends MainComponent
             @Override
             public void mousePressed (MouseEvent e)
             {
+                toggle[0] = false;
+                
                 ImageIcon decoratorImage = Worker.getDecoratorImage ("/quiz_generator/Design/160.png", 305, 30);
                 decorators[0].setIcon (decoratorImage);
                 

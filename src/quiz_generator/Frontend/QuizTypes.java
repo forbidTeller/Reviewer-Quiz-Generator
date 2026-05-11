@@ -305,9 +305,7 @@ class QuizTypes extends MainComponent
                             {
                                 ImageIcon decoratorImage = Worker.getDecoratorImage ("/quiz_generator/Design/65.png", 481, 117);
                                 decorators[j].setIcon (decoratorImage);
-                                
-                                backend.getIndex()[2]++;
-                                
+                                                             
                                 transition.resultCheckerScreen (frame);
                                 
                                 new SwingWorker<Void, Void>()
@@ -323,6 +321,8 @@ class QuizTypes extends MainComponent
                                     @Override
                                     protected void done()
                                     {
+                                        backend.getIndex()[2]++;
+                                        
                                         changeComponents (frame);
                                         
                                         frontend.setPanel (null);
@@ -330,7 +330,7 @@ class QuizTypes extends MainComponent
                                         frontend.setPanel (background());
                                         frontend.getPanel().setLayout (layout);
                                         frontend.getPanel().add (correctors.correctAnswerMultipleChoice (frame, layout, highlightedTerms), "correctAnswerMultipleChoice");
-                                        
+                                                                            
                                         layout.show (frontend.getPanel(), "correctAnswerMultipleChoice");
                                         
                                         frame.add (frontend.getPanel());
@@ -664,10 +664,7 @@ class QuizTypes extends MainComponent
                                 typingIcon.setVisible (false);
                                 
                                 frontend.getClock().stop();
-                                
-                                backend.getIndex()[2]++;
-                                backend.setSize (backend.getSize() - 1);
-                                
+                                                                                            
                                 transition.resultCheckerScreen (frame);
                                 
                                 new SwingWorker<Void, Void>()
@@ -683,6 +680,9 @@ class QuizTypes extends MainComponent
                                     @Override
                                     protected void done()
                                     {
+                                        backend.getIndex()[2]++;
+                                        backend.setSize (backend.getSize() - 1);
+                                         
                                         changeComponents (frame);
                                         
                                         frontend.setPanel (null);
@@ -690,7 +690,7 @@ class QuizTypes extends MainComponent
                                         frontend.setPanel (background());
                                         frontend.getPanel().setLayout (layout);
                                         frontend.getPanel().add (correctors.correctAnswerIdentification (frame, layout, highlightedTerms), "correctAnswerIdentification");
-                                        
+                                                                                       
                                         layout.show (frontend.getPanel(), "correctAnswerIdentification");
                                         
                                         frame.add (frontend.getPanel());
@@ -1057,10 +1057,7 @@ class QuizTypes extends MainComponent
                             {
                                 ImageIcon decoratorImage = Worker.getDecoratorImage ("/quiz_generator/Design/109.png", 502, 141);
                                 decorators[j].setIcon (decoratorImage);
-                                
-                                backend.getIndex()[2]++;
-                                backend.setSize (backend.getSize() - 1);
-                                
+                                                                                   
                                 transition.resultCheckerScreen (frame);
                                 
                                 new SwingWorker<Void, Void>()
@@ -1076,6 +1073,9 @@ class QuizTypes extends MainComponent
                                     @Override
                                     protected void done()
                                     {
+                                        backend.getIndex()[2]++;
+                                        backend.setSize (backend.getSize() - 1);
+                                        
                                         changeComponents (frame);
                                         
                                         frontend.setPanel (null);
@@ -1083,7 +1083,7 @@ class QuizTypes extends MainComponent
                                         frontend.setPanel (background());
                                         frontend.getPanel().setLayout (layout);
                                         frontend.getPanel().add (correctors.correctAnswerTrueFalse (frame, layout, highlightedTerms), "correctAnswerTrueFalse");
-                                        
+                                                                               
                                         layout.show (frontend.getPanel(), "correctAnswerTrueFalse");
                                         
                                         frame.add (frontend.getPanel());
@@ -1144,10 +1144,7 @@ class QuizTypes extends MainComponent
                             {
                                 ImageIcon decoratorImage = Worker.getDecoratorImage ("/quiz_generator/Design/113.png", 519, 153);
                                 decorators[j].setIcon (decoratorImage);
-                                
-                                backend.getIndex()[2]++;
-                                backend.setSize (backend.getSize() - 1);
-                                
+                                                             
                                 transition.resultCheckerScreen (frame);
                                 
                                 new SwingWorker<Void, Void>()
@@ -1163,6 +1160,9 @@ class QuizTypes extends MainComponent
                                     @Override
                                     protected void done()
                                     {
+                                        backend.getIndex()[2]++;
+                                        backend.setSize (backend.getSize() - 1);
+                                        
                                         changeComponents (frame);
                                         
                                         frontend.setPanel (null);
@@ -1170,7 +1170,7 @@ class QuizTypes extends MainComponent
                                         frontend.setPanel (background());
                                         frontend.getPanel().setLayout (layout);
                                         frontend.getPanel().add (correctors.correctAnswerTrueFalse (frame, layout, highlightedTerms), "correctAnswerTrueFalse");
-                                        
+                                                                                                            
                                         layout.show (frontend.getPanel(), "correctAnswerTrueFalse");
                                         
                                         frame.add (frontend.getPanel());
