@@ -7,6 +7,32 @@ import java.text.*;
 
 class Backup 
 {
+    // TO HIDE BACKUP DATA FILE
+    
+    private static String getFilePath (String fileName)
+    {
+        String filePath, os = System.getProperty ("os.name").toUpperCase();
+        
+        if (os.contains ("WIN"))
+        {
+            filePath = System.getenv ("APPDATA");
+        }
+        else if (os.contains ("MAC"))
+        {
+            filePath = System.getProperty ("user.home") + "/Library/Application Support";
+        }
+        else
+        {
+            filePath = System.getProperty ("user.home") + "/.local/share";
+        }
+        
+        File directory = new File (filePath, "ReviewQuizGenerator");
+        
+        if (!directory.exists()) directory.mkdirs();
+        
+        return new File (directory, fileName).getAbsolutePath();
+    }
+    
     // BACKUP CRUD FOR LEADERBOARD ONLY
     
     static List<String> loadForLeaderboard (String loadFileName)
@@ -15,7 +41,7 @@ class Backup
         
         try
         {
-            File file = new File (loadFileName);
+            File file = new File (getFilePath (loadFileName));
             
             if (!file.exists())
             {
@@ -55,7 +81,7 @@ class Backup
     {
         try
         {
-            File file = new File (saveFileName);
+            File file = new File (getFilePath (saveFileName));
             
             if (!file.exists()) file.createNewFile();
             
@@ -74,7 +100,7 @@ class Backup
     
     static void overwriteForLeaderboard (List<String> list, String saveFileName)
     {
-        try (FileWriter fw = new FileWriter (saveFileName, false))
+        try (FileWriter fw = new FileWriter (getFilePath (saveFileName), false))
         {
             for (String s : list)
             {
@@ -91,7 +117,7 @@ class Backup
     
     static void clearForLeaderboard (String clearFileName)
     {
-        try (FileWriter fw = new FileWriter (clearFileName, false))
+        try (FileWriter fw = new FileWriter (getFilePath (clearFileName), false))
         {
             fw.write ("");
         }
@@ -115,7 +141,7 @@ class Backup
         {
             try
             {
-                File file = new File (files[i]);
+                File file = new File (getFilePath (files[i]));
                 
                 if (!file.exists()) file.createNewFile();
                 
@@ -211,7 +237,7 @@ class Backup
         {
             try
             {
-                File file = new File (files[i]);
+                File file = new File (getFilePath (files[i]));
                 
                 if (!file.exists()) file.createNewFile();
                 
