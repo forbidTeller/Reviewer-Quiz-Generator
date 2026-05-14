@@ -457,6 +457,8 @@ public class Start extends MainComponent
             }
         }
         
+        final boolean[] mouseLock = {false};
+        
         for (int i = 0; i < decoratorImageName.length; i++)
         {
             final int j = i;
@@ -470,6 +472,8 @@ public class Start extends MainComponent
                         @Override
                         public void mouseEntered (MouseEvent e)
                         {
+                            if (mouseLock[0]) return;
+                            
                             ImageIcon decoratorImage = Worker.getDecoratorImage ("/quiz_generator/Design/26.png", 670, 126);
                             decorators[j].setIcon (decoratorImage);
                         }
@@ -477,6 +481,8 @@ public class Start extends MainComponent
                         @Override
                         public void mouseExited (MouseEvent e)
                         {
+                            if (mouseLock[0]) return;
+                            
                             ImageIcon decoratorImage = Worker.getDecoratorImage ("/quiz_generator/Design/25.png", 670, 126);
                             decorators[j].setIcon (decoratorImage);
                         }                       
@@ -490,6 +496,8 @@ public class Start extends MainComponent
                         @Override
                         public void mouseEntered (MouseEvent e)
                         {
+                            if (mouseLock[0]) return;
+                            
                             ImageIcon decoratorImage = Worker.getDecoratorImage ("/quiz_generator/Design/28.png", 670, 126);
                             decorators[j].setIcon (decoratorImage);
                         }
@@ -497,6 +505,8 @@ public class Start extends MainComponent
                         @Override
                         public void mouseExited (MouseEvent e)
                         {
+                            if (mouseLock[0]) return;
+                            
                             ImageIcon decoratorImage = Worker.getDecoratorImage ("/quiz_generator/Design/27.png", 670, 126);
                             decorators[j].setIcon (decoratorImage);
                         }
@@ -510,6 +520,8 @@ public class Start extends MainComponent
                         @Override
                         public void mouseEntered (MouseEvent e)
                         {
+                            if (mouseLock[0]) return;
+                            
                             ImageIcon decoratorImage = Worker.getDecoratorImage ("/quiz_generator/Design/30.png", 670, 126);
                             decorators[j].setIcon (decoratorImage);
                         }
@@ -517,6 +529,8 @@ public class Start extends MainComponent
                         @Override
                         public void mouseExited (MouseEvent e)
                         {
+                            if (mouseLock[0]) return;
+                            
                             ImageIcon decoratorImage = Worker.getDecoratorImage ("/quiz_generator/Design/29.png", 670, 126);
                             decorators[j].setIcon (decoratorImage);
                         }
@@ -530,6 +544,8 @@ public class Start extends MainComponent
                         @Override
                         public void mouseEntered (MouseEvent e)
                         {
+                            if (mouseLock[0]) return;
+                            
                             ImageIcon decoratorImage = Worker.getDecoratorImage ("/quiz_generator/Design/32.png", 235, 82);
                             decorators[j].setIcon (decoratorImage);
                         }
@@ -537,6 +553,8 @@ public class Start extends MainComponent
                         @Override
                         public void mouseExited (MouseEvent e)
                         {
+                            if (mouseLock[0]) return;
+                            
                             ImageIcon decoratorImage = Worker.getDecoratorImage ("/quiz_generator/Design/31.png", 235, 82);
                             decorators[j].setIcon (decoratorImage);
                         }
@@ -544,6 +562,10 @@ public class Start extends MainComponent
                         @Override
                         public void mousePressed (MouseEvent e)
                         {
+                            if (mouseLock[0]) return;
+                            
+                            mouseLock[0] = true;
+                            
                             transition.quickLoadingScreen (frame);
                             
                             new SwingWorker<Void, Void>()
@@ -593,11 +615,19 @@ public class Start extends MainComponent
                 @Override
                 public void mousePressed (MouseEvent e)
                 {
+                    if (mouseLock[0]) return;
+                    
+                    mouseLock[0] = true;
+                    
+                    frame.setCursor (Cursor.getPredefinedCursor (Cursor.WAIT_CURSOR));
+                    
                     new SwingWorker<Void, Void>()
                     {
                         @Override
                         protected Void doInBackground() throws Exception
                         {
+                            Thread.sleep (50);
+                            
                             return null;
                         }
                         
@@ -625,6 +655,10 @@ public class Start extends MainComponent
                             catch (Exception e)
                             {
                                 // Ignore
+                            }
+                            finally
+                            {
+                                frame.setCursor (Cursor.getDefaultCursor());
                             }
                         }
                         
