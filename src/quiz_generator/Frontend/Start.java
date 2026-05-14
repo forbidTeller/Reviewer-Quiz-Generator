@@ -10,6 +10,7 @@ import java.awt.event.*;
 import java.util.List;
 import java.util.*;
 import java.io.*;
+import java.net.URISyntaxException;
 
 public class Start extends MainComponent
 {  
@@ -167,9 +168,23 @@ public class Start extends MainComponent
                         {
                             JFileChooser fileChooser = new JFileChooser();
                             
-                            String currentDirectory = System.getProperty ("user.dir");
+                            File targetFolder = new File (System.getProperty ("user.dir"), "test subjects");
                             
-                            fileChooser.setCurrentDirectory (new File (currentDirectory, "test subjects"));
+                            if (!targetFolder.exists())
+                            {
+                                try
+                                {
+                                    File location = new File (Start.class.getProtectionDomain().getCodeSource().getLocation().toURI()), directory = location.getParentFile();
+                                    
+                                    targetFolder = new File (directory, "test subjects");
+                                }
+                                catch (URISyntaxException e_2)
+                                {
+                                    // Ignore
+                                }
+                            }
+                            
+                            fileChooser.setCurrentDirectory (targetFolder);
                             fileChooser.setAcceptAllFileFilterUsed (false);
                             fileChooser.setMultiSelectionEnabled (false);
                             
