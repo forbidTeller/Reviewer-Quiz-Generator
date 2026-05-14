@@ -26,7 +26,7 @@ class Backup
             filePath = System.getProperty ("user.home") + "/.local/share";
         }
         
-        File directory = new File (filePath, "ReviewQuizGenerator");
+        File directory = new File (filePath, "Reviewer Quiz Generator");
         
         if (!directory.exists()) directory.mkdirs();
         
