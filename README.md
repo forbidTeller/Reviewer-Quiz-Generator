@@ -39,7 +39,7 @@ Since this project does not use Maven/Gradle, you must manually download these `
 * [Log4j Core (v2.19.0)](https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-core/2.19.0/log4j-core-2.19.0.jar)
 * [SLF4J Simple (v2.0.13)](https://repo1.maven.org/maven2/org/slf4j/slf4j-simple/2.0.13/slf4j-simple-2.0.13.jar)
 
-> > **Note for Users:** When downloading from MVNRepository, simply click on the "jar" link in the "Files" row to get the direct download.
+> > **Note for Users:** These are direct download links. Clicking them will immediately download the `.jar` files to your computer.
 
 ## Installation
 
