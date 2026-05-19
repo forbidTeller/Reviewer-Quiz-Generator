@@ -39,9 +39,12 @@ Since this project does not use Maven/Gradle, you must manually download these `
 * [Log4j API & Core (v2.19.0)](https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core/2.19.0)
 * [SLF4J API & Simple (v2.0.13)](https://mvnrepository.com/artifact/org.slf4j/slf4j-simple/2.0.13)
 
-> **Note for Users:** When downloading from MVNRepository, simply click on the "jar" link in the "Files" row to get the direct download.
-> ## Installation
-**1. Clone the repository:**
+> > **Note for Users:** When downloading from MVNRepository, simply click on the "jar" link in the "Files" row to get the direct download.
+
+## Installation
+
+1. **Clone the repository:**
 ```bash
 git clone [https://github.com/your-username/Review-Quiz-Generator.git](https://github.com/your-username/Review-Quiz-Generator.git)
+
 
