@@ -21,23 +21,23 @@ To get a local copy up and running, follow these steps.
 Since this project does not use Maven/Gradle, you must manually download these `.jar` files and add them to your project's Build Path/Libraries folder. All files can be downloaded safely from the Maven Central Repository:
 
 **Database Connection:**
-* [MySQL Connector/J (v8.3.0)](https://mvnrepository.com/artifact/com.mysql/mysql-connector-j/8.3.0)
+* [MySQL Connector/J (v8.3.0)](https://repo1.maven.org/maven2/com/mysql/mysql-connector-j/8.3.0/mysql-connector-j-8.3.0.jar)
 
 **Document Processing (Word & PDF):**
-* [Apache PDFBox App (v2.0.30)](https://mvnrepository.com/artifact/org.apache.pdfbox/pdfbox-app/2.0.30)
-* [Apache POI Core (v5.2.3)](https://mvnrepository.com/artifact/org.apache.poi/poi/5.2.3)
-* [Apache POI OOXML (v5.2.3)](https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml/5.2.3)
-* [Apache POI OOXML Full (v5.2.3)](https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml-full/5.2.3)
-* [Apache XMLBeans (v5.1.1)](https://mvnrepository.com/artifact/org.apache.xmlbeans/xmlbeans/5.1.1)
+* [Apache PDFBox App (v2.0.30)](https://repo1.maven.org/maven2/org/apache/pdfbox/pdfbox-app/2.0.30/pdfbox-app-2.0.30.jar)
+* [Apache POI Core (v5.2.3)](https://repo1.maven.org/maven2/org/apache/poi/poi/5.2.3/poi-5.2.3.jar)
+* [Apache POI OOXML (v5.2.3)](https://repo1.maven.org/maven2/org/apache/poi/poi-ooxml/5.2.3/poi-ooxml-5.2.3.jar)
+* [Apache POI OOXML Full (v5.2.3)](https://repo1.maven.org/maven2/org/apache/poi/poi-ooxml-full/5.2.3/poi-ooxml-full-5.2.3.jar)
+* [Apache XMLBeans (v5.1.1)](https://repo1.maven.org/maven2/org/apache/xmlbeans/xmlbeans/5.1.1/xmlbeans-5.1.1.jar)
 
 **Apache Commons (Dependencies for POI):**
-* [Commons Collections4 (v4.4)](https://mvnrepository.com/artifact/org.apache.commons/commons-collections4/4.4)
-* [Commons Compress (v1.22)](https://mvnrepository.com/artifact/org.apache.commons/commons-compress/1.22)
-* [Commons IO (v2.11.0)](https://mvnrepository.com/artifact/commons-io/commons-io/2.11.0)
+* [Commons Collections4 (v4.4)](https://repo1.maven.org/maven2/org/apache/commons/commons-collections4/4.4/commons-collections4-4.4.jar)
+* [Commons Compress (v1.22)](https://repo1.maven.org/maven2/org/apache/commons/commons-compress/1.22/commons-compress-1.22.jar)
+* [Commons IO (v2.11.0)](https://repo1.maven.org/maven2/commons-io/commons-io/2.11.0/commons-io-2.11.0.jar)
 
 **Logging Frameworks:**
-* [Log4j API & Core (v2.19.0)](https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core/2.19.0)
-* [SLF4J API & Simple (v2.0.13)](https://mvnrepository.com/artifact/org.slf4j/slf4j-simple/2.0.13)
+* [Log4j Core (v2.19.0)](https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-core/2.19.0/log4j-core-2.19.0.jar)
+* [SLF4J Simple (v2.0.13)](https://repo1.maven.org/maven2/org/slf4j/slf4j-simple/2.0.13/slf4j-simple-2.0.13.jar)
 
 > > **Note for Users:** When downloading from MVNRepository, simply click on the "jar" link in the "Files" row to get the direct download.
 
