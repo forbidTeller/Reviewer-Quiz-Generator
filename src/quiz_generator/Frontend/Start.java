@@ -10,7 +10,7 @@ import java.awt.event.*;
 import java.util.List;
 import java.util.*;
 import java.io.*;
-import java.net.URISyntaxException;
+import java.net.*;
 
 public class Start extends MainComponent
 {  
@@ -166,7 +166,29 @@ public class Start extends MainComponent
                         @Override
                         public void mousePressed (MouseEvent e)
                         {
+                            LookAndFeel previous = UIManager.getLookAndFeel();
+                            
+                            try
+                            {
+                                UIManager.setLookAndFeel (UIManager.getSystemLookAndFeelClassName());
+                            }
+                            catch (ClassNotFoundException | IllegalAccessException | InstantiationException | UnsupportedLookAndFeelException e_2)
+                            {
+                                // Ignore
+                            }
+                            
                             JFileChooser fileChooser = new JFileChooser();
+                            
+                            SwingUtilities.updateComponentTreeUI (fileChooser);
+                            
+                            try
+                            {
+                                UIManager.setLookAndFeel (previous);
+                            }
+                            catch (UnsupportedLookAndFeelException e_2)
+                            {
+                                // Ignore
+                            }
                             
                             File targetFolder = new File (System.getProperty ("user.dir"), "test subjects");
                             

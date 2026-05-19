@@ -11,7 +11,7 @@ class HighlightedPDF extends PDFTextStripper
 {
     List<String> highlightedTerms = new ArrayList<>();
     
-    public HighlightedPDF() throws Exception
+    HighlightedPDF() throws Exception
     {
         super();
     }
