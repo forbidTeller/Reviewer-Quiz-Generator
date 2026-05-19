@@ -48,6 +48,10 @@ Since this project does not use Maven/Gradle, you must manually download these `
      ```bash
         git clone [https://github.com/your-username/Review-Quiz-Generator.git](https://github.com/your-username/Review-Quiz-Generator.git)
 2. **Setup Libraries:**
-   * add
+   * Create a folder named 'lib' in your project root.
+   * Move the downloaded JARs into the 'lib' folder.
+   * In your IDE, right-click the JARs and select **"Add as Library"** or **"Add to Build Path"**.
+3. **Run the Application:**
+   * Locate Main.java and run it.
 
 
