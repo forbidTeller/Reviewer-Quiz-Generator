@@ -1,5 +1,5 @@
 # Reviewer-Quiz-Generator
-Reviewer Quiz Generator is a desktop app that turns text, Word, or PDF files into interactive study materials. By extracting user-highlighted terms, it generates Multiple Choice, Identification, and True/False quizzes. It acts as a gamified mental warm-up to exercise your memorization before a real exam.
+Reviewer Quiz Generator is a desktop app that turns **text, Word, or PDF files** into interactive study materials. By extracting user-highlighted terms, it generates **Multiple Choice, Identification, and True/False** quizzes. It acts as a gamified mental warm-up to exercise your memorization before a real exam.
 # Features
 * **Multi-Format File Support**:  Allows users to upload standard text files (.txt), Word documents (.docx), and PDF files (.pdf).
 * **Automated Keyword Targeting**: The program automatically scans the uploaded documents to find highlighted terms, specifically looking for text wrapped in asterisks for .txt files or bolded text in .docx and .pdf files.
