@@ -54,4 +54,6 @@ Since this project does not use Maven/Gradle, you must manually download these `
 3. **Run the Application:**
    * Locate `QuizGenerator.java` and run it.
 
+> **Note for Users:** Reviewer Quiz Generator is an experimental system. It is not perfect and can make mistakes.
+
 
