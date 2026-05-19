@@ -12,7 +12,7 @@ Reviewer Quiz Generator is a desktop app that turns text, Word, or PDF files int
 # Getting Started
 To get a local copy up and running, follow these steps.
 ## Prerequisites
-* [JDK 17 or higher] (https://www.oracle.com/java/technologies/downloads/)
+* [JDK 24 or higher] (https://www.oracle.com/java/technologies/downloads/)
 * Any Java-compatible IDE (e.g., Apache NetBeans, IntelliJ IDEA, Eclipse, or VS Code)
 * Git
 * External Libraries (JAR Files listed below)
