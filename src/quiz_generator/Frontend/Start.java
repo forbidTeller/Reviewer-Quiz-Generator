@@ -1198,6 +1198,7 @@ public class Start extends MainComponent
         input.setForeground (Color.GRAY);
         input.setBorder (null);
         input.setOpaque (false);
+        input.setHorizontalAlignment (SwingConstants.CENTER);
         input.setBounds (Worker.getBounds (831, 724, 247, 56));
         
         AbstractDocument ad = (AbstractDocument) input.getDocument();

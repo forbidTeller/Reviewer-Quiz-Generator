@@ -51,9 +51,9 @@ public class Database
                  (
                       ID INT AUTO_INCREMENT PRIMARY KEY,
                       USER_ID INT NOT NULL,
+                      DATE VARCHAR(100) NOT NULL,
                       SCORE VARCHAR(100) NOT NULL,
                       TOTAL_SCORE VARCHAR(100) NOT NULL,
-                      DATE VARCHAR(100) NOT NULL,
                       FOREIGN KEY (USER_ID) REFERENCES user_records(ID) ON DELETE CASCADE
                  );               
             """;
