@@ -50,7 +50,7 @@ public class Start extends MainComponent
         frontend.getState().clear();
         frontend.setPanel (background());
         frontend.getPanel().setLayout (layout);
-        frontend.getPanel().add (getPage1 (frame, layout, highlightedTerms), "page1");
+        frontend.getPanel().add (page1 (frame, layout, highlightedTerms), "page1");
         
         layout.show (frontend.getPanel(), "page1");
         
@@ -301,7 +301,7 @@ public class Start extends MainComponent
                             decorators[j].setIcon (decoratorImage);
                             
                             ImageIcon decoratorImage_1 = Worker.getDecoratorImage ("/quiz_generator/Design/7.png", 45, 45);
-                            decorators[4].setText ("");
+                            decorators[4].setText("");
                             decorators[4].setIcon (decoratorImage_1);
                             decorators[4].setBounds (Worker.getBounds (442, 761, 45, 45));
                         }
