@@ -142,9 +142,7 @@ class QuizConfigurator extends MainComponent
                     @Override
                     protected void done()
                     {
-                        frontend.getState().remove (FrontendSharedData.Condition.FILE_EXISTED);
-                        frontend.getState().remove (FrontendSharedData.Condition.TOO_SMALL);
-                        frontend.getState().remove (FrontendSharedData.Condition.TOO_LARGE);
+                        frontend.getState().clear();
                         
                         changeComponents (frame);
                         

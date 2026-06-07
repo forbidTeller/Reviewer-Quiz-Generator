@@ -242,7 +242,7 @@ public class Start extends MainComponent
                                         
                                     }.execute();
                                 }
-                                else if (backend.getFileName().endsWith (".txt") || backend.getFileName().endsWith (".docx") || backend.getFileName().endsWith (".pdf"))
+                                else
                                 {
                                     transition.quickLoadingScreen (frame);
                                     
