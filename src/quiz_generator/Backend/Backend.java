@@ -23,20 +23,20 @@ public interface Backend
     List<String> getQuestions();
     List<String> getAnswers();
     
-    void setSelectedFile (File selectedFile);
-    void setFileName (String fileName);
-    void setChoices (String[] choices);
-    void setSize (int size);
-    void setScore (int score);
-    void setUsedOnce (boolean usedOnce);
+    void setSelectedFile(File selectedFile);
+    void setFileName(String fileName);
+    void setChoices(String[] choices);
+    void setSize(int size);
+    void setScore(int score);
+    void setUsedOnce(boolean usedOnce);
     
-    void setExtractStored (Map<String, String[]> extractStored);
-    void setQuestions (List<String> questions);
-    void setAnswers (List<String> answers);
+    void setExtractStored(Map<String, String[]> extractStored);
+    void setQuestions(List<String> questions);
+    void setAnswers(List<String> answers);
     
-    void partialReset (List<String> highlightedTerms);
-    void multipleChoiceReset (List<String> highlightedTerms);
-    void identificationReset (List<String> highlightedTerms);
-    void trueFalseReset (List<String> highlightedTerms);
+    void partialReset(List<String> highlightedTerms);
+    void multipleChoiceReset(List<String> highlightedTerms);
+    void identificationReset(List<String> highlightedTerms);
+    void trueFalseReset(List<String> highlightedTerms);
     void retryReset();
 }

@@ -7,17 +7,17 @@ class Background extends JPanel
 {
     private final ImageIcon icon;
     
-    Background (String filePath)
+    Background(String filePath)
     {
-        icon = new ImageIcon (getClass().getResource (filePath));
-        setLayout (null);
+        icon = new ImageIcon(getClass().getResource(filePath));
+        setLayout(null);
     }
     
     @Override
-    protected void paintComponent (Graphics g)
+    protected void paintComponent(Graphics g)
     {
         super.paintComponent(g);
         
-        g.drawImage (icon.getImage(), 0, 0, getWidth(), getHeight(), this);
+        g.drawImage(icon.getImage(), 0, 0, getWidth(), getHeight(), this);
     }
 }

@@ -4,22 +4,22 @@ import java.util.List;
 
 public class QuickProcessor 
 {
-    public static String[] triggeredChoice (Backend backend, List<String> highlightedTerms) throws Exception
+    public static String[] triggeredChoice(Backend backend, List<String> highlightedTerms) throws Exception
     {
         return switch (backend.getIndex()[1])
         {
-            case 1 -> QuizTypeProcessor.multipleChoice (backend, highlightedTerms);
-            case 2 -> QuizTypeProcessor.identification (backend, highlightedTerms);
-            case 3 -> QuizTypeProcessor.trueFalse (backend, highlightedTerms);
+            case 1 -> QuizTypeProcessor.multipleChoice(backend, highlightedTerms);
+            case 2 -> QuizTypeProcessor.identification(backend, highlightedTerms);
+            case 3 -> QuizTypeProcessor.trueFalse(backend, highlightedTerms);
             default -> null;
         };
     }
     
-    public static String addLineBreaks (Backend backend, String text)
+    public static String addLineBreaks(Backend backend, String text)
     {
-        String[] words = text.split ("\\s+");
+        String[] words = text.split("\\s+");
         
-        StringBuilder sb = new StringBuilder ("<html>");
+        StringBuilder sb = new StringBuilder("<html>");
         
         int wordsInLine = 0, lineLength = 0;
         
@@ -29,20 +29,20 @@ public class QuickProcessor
             
             if (wordsInLine == 5 || (lineLength + word.length()) > 35)
             {
-                sb.append ("<br>");
+                sb.append("<br>");
                 
                 wordsInLine = 0;
                 lineLength = 0;
             }
             
-            sb.append (word);
+            sb.append(word);
             
             wordsInLine++;
             lineLength += word.length();
             
             if (i < words.length - 1)
             {
-                sb.append (" ");
+                sb.append(" ");
                 
                 lineLength++;
             }
@@ -54,7 +54,7 @@ public class QuickProcessor
             case 3 -> sb.append(".");
         }
         
-        sb.append ("</html>");
+        sb.append("</html>");
         
         return sb.toString();
     }

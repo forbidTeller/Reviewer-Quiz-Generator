@@ -19,18 +19,18 @@ class Leaderboard extends MainComponent
     
      // CONSTRUCTOR
     
-    Leaderboard (Backend backend, Frontend frontend, UITransition transition, QuizConfigurator configurator)
+    Leaderboard(Backend backend, Frontend frontend, UITransition transition, QuizConfigurator configurator)
     {
-        super (backend, frontend);
+        super(backend, frontend);
         
         this.transition = transition;
         this.configurator = configurator;
     }
     
-    JLayeredPane showLeaderboard (JFrame frame, CardLayout layout, List<String> highlightedTerms)
+    JLayeredPane showLeaderboard(JFrame frame, CardLayout layout, List<String> highlightedTerms)
     {
         JLayeredPane layeredPane = new JLayeredPane();
-        layeredPane.setBounds (Worker.getBounds (0, 0, 1920, 1080));
+        layeredPane.setBounds(Worker.getBounds(0, 0, 1920, 1080));
         
         String[] decoratorImageName = {"/quiz_generator/Design/129.png", "/quiz_generator/Design/130.png", "/quiz_generator/Design/132.png", "/quiz_generator/Design/134.png"};
         int[] x = {1729, 860, 920, 266};
@@ -42,51 +42,51 @@ class Leaderboard extends MainComponent
         
         for (int i = 0; i < decoratorImageName.length; i++)
         {
-            icons = Worker.getDecoratorImages (decoratorImageName, x[0], x[1]);
-            decorators[i] = new JLabel (icons[i]);
+            icons = Worker.getDecoratorImages(decoratorImageName, x[0], x[1]);
+            decorators[i] = new JLabel(icons[i]);
             
             hitboxes[i] = new JLabel();
-            hitboxes[i].setOpaque (false);
+            hitboxes[i].setOpaque(false);
             
             switch(i)
             {
                 case 0 ->
                 {
-                    decorators[i].setBounds (Worker.getBounds (107, 43, x[0], x[1]));
+                    decorators[i].setBounds(Worker.getBounds(107, 43, x[0], x[1]));
                     
                     x[0] = 337;
                     x[1] = 121;
                 }
                 case 1 ->
                 {
-                    hitboxes[i].setCursor (new Cursor (Cursor.HAND_CURSOR));
+                    hitboxes[i].setCursor(new Cursor(Cursor.HAND_CURSOR));
                     
-                    decorators[i].setBounds (Worker.getBounds (251, x[2], x[0], x[1]));
-                    hitboxes[i].setBounds (Worker.getBounds (251, x[2], x[0], x[1]));
+                    decorators[i].setBounds(Worker.getBounds(251, x[2], x[0], x[1]));
+                    hitboxes[i].setBounds(Worker.getBounds(251, x[2], x[0], x[1]));
                 }
                 case 2 ->
                 {
-                    hitboxes[i].setCursor (new Cursor (Cursor.HAND_CURSOR));
+                    hitboxes[i].setCursor(new Cursor(Cursor.HAND_CURSOR));
                     
-                    decorators[i].setBounds (Worker.getBounds (789, x[2], x[0], x[1]));
-                    hitboxes[i].setBounds (Worker.getBounds (789, x[2], x[0], x[1]));
+                    decorators[i].setBounds(Worker.getBounds(789, x[2], x[0], x[1]));
+                    hitboxes[i].setBounds(Worker.getBounds(789, x[2], x[0], x[1]));
                 }
                 case 3 ->
                 {
-                    hitboxes[i].setCursor (new Cursor (Cursor.HAND_CURSOR));
+                    hitboxes[i].setCursor(new Cursor(Cursor.HAND_CURSOR));
                     
-                    decorators[i].setBounds (Worker.getBounds (1326, x[2], x[0], x[1]));
-                    hitboxes[i].setBounds (Worker.getBounds (1326, x[2], x[0], x[1]));          
+                    decorators[i].setBounds(Worker.getBounds(1326, x[2], x[0], x[1]));
+                    hitboxes[i].setBounds(Worker.getBounds(1326, x[2], x[0], x[1]));          
                 }
             }
         }
         
-        List<String> names = Database.loadForLeaderboard ("NAME");
-        List<String> scores = Database.loadForLeaderboard ("SCORE");
+        List<String> names = Database.loadForLeaderboard("NAME");
+        List<String> scores = Database.loadForLeaderboard("SCORE");
         
         List<String> validNames = new ArrayList<>(), validScores = new ArrayList<>();
         
-        int safeLimit = Math.min (names.size(), scores.size());
+        int safeLimit = Math.min(names.size(), scores.size());
         
         for (int i = 0; i < safeLimit; i++)
         {
@@ -94,14 +94,14 @@ class Leaderboard extends MainComponent
             {
                 String currentName = names.get(i).trim(), currentScoreStr = scores.get(i).trim();
                 
-                if (!currentName.isEmpty() && !currentName.equals ("-1") && !currentName.equals ("WIPED") && !currentScoreStr.equals ("-1"))
+                if (!currentName.isEmpty() && !currentName.equals("-1") && !currentName.equals("WIPED") && !currentScoreStr.equals("-1"))
                 {
-                    int currentScore = Integer.parseInt (currentScoreStr);
+                    int currentScore = Integer.parseInt(currentScoreStr);
                     
                     if (currentScore > 0)
                     {
-                        validNames.add (currentName);
-                        validScores.add (currentScoreStr);
+                        validNames.add(currentName);
+                        validScores.add(currentScoreStr);
                     }
                 }
             }
@@ -111,13 +111,13 @@ class Leaderboard extends MainComponent
             }
         }
         
-        String[] nameArray = validNames.toArray (String[] :: new), scoreArray = validScores.toArray (String[] :: new);
+        String[] nameArray = validNames.toArray(String[] :: new), scoreArray = validScores.toArray(String[] :: new);
         
         for (int i = 0; i < scoreArray.length - 1; i++)
         {
             for (int j = 0; j < scoreArray.length - i - 1; j++)
             {
-                int prevScore = Integer.parseInt (scoreArray[j]), currentScore = Integer.parseInt (scoreArray[j + 1]);
+                int prevScore = Integer.parseInt(scoreArray[j]), currentScore = Integer.parseInt(scoreArray[j + 1]);
                 
                 if (prevScore < currentScore)
                 {
@@ -132,7 +132,7 @@ class Leaderboard extends MainComponent
             }
         }
         
-        int limit = Math.min (nameArray.length, 10), startY = x[3];
+        int limit = Math.min(nameArray.length, 10), startY = x[3];
                 
         JLabel[] text = new JLabel[limit];
         
@@ -140,10 +140,10 @@ class Leaderboard extends MainComponent
         {
             if (i == 5) x[3] = startY;
             
-            text[i] = new JLabel ("<html>" + nameArray[i] + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Score: " + scoreArray[i] + "</html>", SwingConstants.CENTER);
-            text[i].setFont (Worker.getFont ("/quiz_generator/Font/Chewy-Regular.ttf", 1, 28.6f));
-            text[i].setForeground ((nameArray[i].equals (frontend.getName())) ? new Color (50, 205, 50) : new Color (254, 237, 232));
-            text[i].setBounds ((i >= 5) ? Worker.getBounds (1255, x[3], 392, 32) : Worker.getBounds (488, x[3], 392, 32));
+            text[i] = new JLabel("<html>" + nameArray[i] + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Score: " + scoreArray[i] + "</html>", SwingConstants.CENTER);
+            text[i].setFont(Worker.getFont("/quiz_generator/Font/Chewy-Regular.ttf", 1, 28.6f));
+            text[i].setForeground((nameArray[i].equals(frontend.getName())) ? new Color(50, 205, 50) : new Color(254, 237, 232));
+            text[i].setBounds((i >= 5) ? Worker.getBounds(1255, x[3], 392, 32) : Worker.getBounds(488, x[3], 392, 32));
             
             x[3] += 117;
         }
@@ -156,26 +156,26 @@ class Leaderboard extends MainComponent
             {
                 case 1 ->
                 {
-                    hitboxes[j].addMouseListener (new MouseAdapter()
+                    hitboxes[j].addMouseListener(new MouseAdapter()
                     {
                         @Override
-                        public void mouseEntered (MouseEvent e)
+                        public void mouseEntered(MouseEvent e)
                         {
-                            ImageIcon decoratorImage = Worker.getDecoratorImage ("/quiz_generator/Design/131.png", 337, 121);
-                            decorators[j].setIcon (decoratorImage);
+                            ImageIcon decoratorImage = Worker.getDecoratorImage("/quiz_generator/Design/131.png", 337, 121);
+                            decorators[j].setIcon(decoratorImage);
                         }
                         
                         @Override
-                        public void mouseExited (MouseEvent e)
+                        public void mouseExited(MouseEvent e)
                         {
-                            ImageIcon decoratorImage = Worker.getDecoratorImage ("/quiz_generator/Design/130.png", 337, 121);
-                            decorators[j].setIcon (decoratorImage);
+                            ImageIcon decoratorImage = Worker.getDecoratorImage("/quiz_generator/Design/130.png", 337, 121);
+                            decorators[j].setIcon(decoratorImage);
                         }
                         
                         @Override
-                        public void mousePressed (MouseEvent e)
+                        public void mousePressed(MouseEvent e)
                         {
-                            Database.setInUserScoreHistory (true);
+                            Database.setInUserScoreHistory(true);
                             
                             new SwingWorker<Void, Void>()
                             {
@@ -188,17 +188,17 @@ class Leaderboard extends MainComponent
                                 @Override
                                 protected void done()
                                 {
-                                    changeComponents (frame);
+                                    changeComponents(frame);
                                     
-                                    frontend.setPanel (null);
-                                    frontend.setNextPanel (FrontendSharedData.Page.SCORE_HISTORY_PAGE_1);
-                                    frontend.setPanel (background());
-                                    frontend.getPanel().setLayout (layout);
-                                    frontend.getPanel().add (userListSearching (frame, layout, highlightedTerms), "userListSearching");
+                                    frontend.setPanel(null);
+                                    frontend.setNextPanel(FrontendSharedData.Page.SCORE_HISTORY_PAGE_1);
+                                    frontend.setPanel(background());
+                                    frontend.getPanel().setLayout(layout);
+                                    frontend.getPanel().add(userListSearching(frame, layout, highlightedTerms), "userListSearching");
                                     
-                                    layout.show (frontend.getPanel(), "userListSearching");
+                                    layout.show(frontend.getPanel(), "userListSearching");
                                     
-                                    frame.add (frontend.getPanel());
+                                    frame.add(frontend.getPanel());
                                     frame.revalidate();
                                     frame.repaint();
                                 }
@@ -210,35 +210,35 @@ class Leaderboard extends MainComponent
                 }
                 case 2 ->
                 {
-                    hitboxes[j].addMouseListener (new MouseAdapter()
+                    hitboxes[j].addMouseListener(new MouseAdapter()
                     {
                         @Override
-                        public void mouseEntered (MouseEvent e)
+                        public void mouseEntered(MouseEvent e)
                         {
-                            if (frame.getLayeredPane().getComponentCountInLayer (JLayeredPane.POPUP_LAYER) > 0) return;
+                            if (frame.getLayeredPane().getComponentCountInLayer(JLayeredPane.POPUP_LAYER) > 0) return;
                             
-                            ImageIcon decoratorImage = Worker.getDecoratorImage ("/quiz_generator/Design/133.png", 337, 121);
-                            decorators[j].setIcon (decoratorImage);
+                            ImageIcon decoratorImage = Worker.getDecoratorImage("/quiz_generator/Design/133.png", 337, 121);
+                            decorators[j].setIcon(decoratorImage);
                         }
                         
                         @Override
-                        public void mouseExited (MouseEvent e)
+                        public void mouseExited(MouseEvent e)
                         {
-                            if (frame.getLayeredPane().getComponentCountInLayer (JLayeredPane.POPUP_LAYER) > 0) return;
+                            if (frame.getLayeredPane().getComponentCountInLayer(JLayeredPane.POPUP_LAYER) > 0) return;
                             
-                            ImageIcon decoratorImage = Worker.getDecoratorImage ("/quiz_generator/Design/132.png", 337, 121);
-                            decorators[j].setIcon (decoratorImage);
+                            ImageIcon decoratorImage = Worker.getDecoratorImage("/quiz_generator/Design/132.png", 337, 121);
+                            decorators[j].setIcon(decoratorImage);
                         }
                         
                         @Override
-                        public void mousePressed (MouseEvent e)
+                        public void mousePressed(MouseEvent e)
                         {
-                            if (frame.getLayeredPane().getComponentCountInLayer (JLayeredPane.POPUP_LAYER) > 0) return;
+                            if (frame.getLayeredPane().getComponentCountInLayer(JLayeredPane.POPUP_LAYER) > 0) return;
                             
-                            ImageIcon decoratorImage = Worker.getDecoratorImage ("/quiz_generator/Design/133.png", 337, 121);
-                            decorators[j].setIcon (decoratorImage);
+                            ImageIcon decoratorImage = Worker.getDecoratorImage("/quiz_generator/Design/133.png", 337, 121);
+                            decorators[j].setIcon(decoratorImage);
                             
-                            frontend.getState().add (FrontendSharedData.Condition.RETRY_IS_CLICKED);
+                            frontend.getState().add(FrontendSharedData.Condition.RETRY_IS_CLICKED);
                             
                             new SwingWorker<Void, Void>()
                             {
@@ -251,16 +251,16 @@ class Leaderboard extends MainComponent
                                 @Override
                                 protected void done()
                                 {
-                                    configurator.notificationPanel (frame, layout, highlightedTerms);
+                                    configurator.notificationPanel(frame, layout, highlightedTerms);
                                 }
                                 
                             }.execute();
                             
-                            javax.swing.Timer watcher = new javax.swing.Timer (100, e_2 ->
+                            javax.swing.Timer watcher = new javax.swing.Timer(100, e_2 ->
                             {
-                                if (frame.getLayeredPane().getComponentCountInLayer (JLayeredPane.POPUP_LAYER) == 0)
+                                if (frame.getLayeredPane().getComponentCountInLayer(JLayeredPane.POPUP_LAYER) == 0)
                                 {
-                                    decorators[j].setIcon (Worker.getDecoratorImage ("/quiz_generator/Design/132.png", 337, 121));
+                                    decorators[j].setIcon(Worker.getDecoratorImage("/quiz_generator/Design/132.png", 337, 121));
                                     
                                     ((javax.swing.Timer) e_2.getSource()).stop();
                                 }
@@ -274,35 +274,35 @@ class Leaderboard extends MainComponent
                 }
                 case 3 ->
                 {
-                    hitboxes[j].addMouseListener (new MouseAdapter()
+                    hitboxes[j].addMouseListener(new MouseAdapter()
                     {
                         @Override
-                        public void mouseEntered (MouseEvent e)
+                        public void mouseEntered(MouseEvent e)
                         {
-                            if (frame.getLayeredPane().getComponentCountInLayer (JLayeredPane.POPUP_LAYER) > 0) return;
+                            if (frame.getLayeredPane().getComponentCountInLayer(JLayeredPane.POPUP_LAYER) > 0) return;
                             
-                            ImageIcon decoratorImage = Worker.getDecoratorImage ("/quiz_generator/Design/135.png", 337, 121);
-                            decorators[j].setIcon (decoratorImage);
+                            ImageIcon decoratorImage = Worker.getDecoratorImage("/quiz_generator/Design/135.png", 337, 121);
+                            decorators[j].setIcon(decoratorImage);
                         }
                         
                         @Override
-                        public void mouseExited (MouseEvent e)
+                        public void mouseExited(MouseEvent e)
                         {
-                            if (frame.getLayeredPane().getComponentCountInLayer (JLayeredPane.POPUP_LAYER) > 0) return;
+                            if (frame.getLayeredPane().getComponentCountInLayer(JLayeredPane.POPUP_LAYER) > 0) return;
                             
-                            ImageIcon decoratorImage = Worker.getDecoratorImage ("/quiz_generator/Design/134.png", 337, 121);
-                            decorators[j].setIcon (decoratorImage);
+                            ImageIcon decoratorImage = Worker.getDecoratorImage("/quiz_generator/Design/134.png", 337, 121);
+                            decorators[j].setIcon(decoratorImage);
                         }
                         
                         @Override
-                        public void mousePressed (MouseEvent e)
+                        public void mousePressed(MouseEvent e)
                         {
-                            if (frame.getLayeredPane().getComponentCountInLayer (JLayeredPane.POPUP_LAYER) > 0) return;
+                            if (frame.getLayeredPane().getComponentCountInLayer(JLayeredPane.POPUP_LAYER) > 0) return;
                             
-                            ImageIcon decoratorImage = Worker.getDecoratorImage ("/quiz_generator/Design/135.png", 337, 121);
-                            decorators[j].setIcon (decoratorImage);
+                            ImageIcon decoratorImage = Worker.getDecoratorImage("/quiz_generator/Design/135.png", 337, 121);
+                            decorators[j].setIcon(decoratorImage);
                             
-                            frontend.getState().add (FrontendSharedData.Condition.EXIT_IS_CLICKED);
+                            frontend.getState().add(FrontendSharedData.Condition.EXIT_IS_CLICKED);
                             
                             new SwingWorker<Void, Void>()
                             {
@@ -315,16 +315,16 @@ class Leaderboard extends MainComponent
                                 @Override
                                 protected void done()
                                 {
-                                    configurator.notificationPanel (frame, layout, highlightedTerms);
+                                    configurator.notificationPanel(frame, layout, highlightedTerms);
                                 }
                                 
                             }.execute();
                             
-                            javax.swing.Timer watcher = new javax.swing.Timer (100, e_2 ->
+                            javax.swing.Timer watcher = new javax.swing.Timer(100, e_2 ->
                             {
-                                if (frame.getLayeredPane().getComponentCountInLayer (JLayeredPane.POPUP_LAYER) == 0)
+                                if (frame.getLayeredPane().getComponentCountInLayer(JLayeredPane.POPUP_LAYER) == 0)
                                 {
-                                    decorators[j].setIcon (Worker.getDecoratorImage ("/quiz_generator/Design/134.png", 337, 121));
+                                    decorators[j].setIcon(Worker.getDecoratorImage("/quiz_generator/Design/134.png", 337, 121));
                                     
                                     ((javax.swing.Timer) e_2.getSource()).stop();
                                 }
@@ -341,25 +341,25 @@ class Leaderboard extends MainComponent
         
         List<JComponent> components = new ArrayList<>();
         
-        components.addAll (Arrays.asList (decorators));
-        components.addAll (Arrays.asList (text));
+        components.addAll(Arrays.asList(decorators));
+        components.addAll(Arrays.asList(text));
         
-        transition.afterEffects (components, layeredPane);
+        transition.afterEffects(components, layeredPane);
         
-        components.addAll (Arrays.asList (hitboxes));
+        components.addAll(Arrays.asList(hitboxes));
         
         for (int i = 0; i < components.size(); i++)
         {
-            layeredPane.add (components.get(i), Integer.valueOf(i));
+            layeredPane.add(components.get(i), Integer.valueOf(i));
         }
         
         return layeredPane;
     }
     
-    JLayeredPane userListSearching (JFrame frame, CardLayout layout, List<String> highlightedTerms)
+    JLayeredPane userListSearching(JFrame frame, CardLayout layout, List<String> highlightedTerms)
     {
         JLayeredPane layeredPane = new JLayeredPane();
-        layeredPane.setBounds (Worker.getBounds (0, 0, 1920, 1080));
+        layeredPane.setBounds(Worker.getBounds(0, 0, 1920, 1080));
         
         String[] decoratorImageName = {"/quiz_generator/Design/138.png", "/quiz_generator/Design/148.png"};
         int[] x = {1337, 1047};
@@ -370,41 +370,41 @@ class Leaderboard extends MainComponent
         
         for (int i = 0; i < decoratorImageName.length; i++)
         {
-            icons = Worker.getDecoratorImages (decoratorImageName, x[0], x[1]);
-            decorators[i] = new JLabel (icons[i]);
+            icons = Worker.getDecoratorImages(decoratorImageName, x[0], x[1]);
+            decorators[i] = new JLabel(icons[i]);
             
             switch(i)
             {
                 case 0 ->
                 {
-                    decorators[i].setBounds (Worker.getBounds (291, 33, x[0], x[1]));
+                    decorators[i].setBounds(Worker.getBounds(291, 33, x[0], x[1]));
                     
                     x[0] = 209;
                     x[1] = 88;
                 }
-                case 1 -> decorators[i].setBounds (Worker.getBounds (44, 54, x[0], x[1]));
+                case 1 -> decorators[i].setBounds(Worker.getBounds(44, 54, x[0], x[1]));
             }
         }
         
         JLabel hitbox = new JLabel();
-        hitbox.setCursor (new Cursor (Cursor.HAND_CURSOR));
-        hitbox.setOpaque (false);
-        hitbox.setBounds (Worker.getBounds (44, 54, 209, 88));
+        hitbox.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        hitbox.setOpaque(false);
+        hitbox.setBounds(Worker.getBounds(44, 54, 209, 88));
         
         JTextField searchField = new JTextField();
-        searchField.setFont (Worker.getFont ("/quiz_generator/Font/Quicksand-Regular.ttf", 0, 29.4f));
-        searchField.setText ("Search names...");
-        searchField.setForeground (Color.DARK_GRAY);
-        searchField.setBorder (null);
-        searchField.setOpaque (false);
-        searchField.setBounds (Worker.getBounds (521, 304, 935, 46));
+        searchField.setFont(Worker.getFont("/quiz_generator/Font/Quicksand-Regular.ttf", 0, 29.4f));
+        searchField.setText("Search names...");
+        searchField.setForeground(Color.DARK_GRAY);
+        searchField.setBorder(null);
+        searchField.setOpaque(false);
+        searchField.setBounds(Worker.getBounds(521, 304, 935, 46));
         
         AbstractDocument ad = (AbstractDocument) searchField.getDocument();
-        ad.setDocumentFilter (new LimitFilter (15, false));
+        ad.setDocumentFilter(new LimitFilter(15, false));
         
         JScrollPane[] scrollPane = new JScrollPane[1];
         
-        List<String> names = Database.loadForScoreHistory ("USER", null, null);
+        List<String> names = Database.loadForScoreHistory("USER", null, null);
         
         for (int i = names.size() - 1; i >= 0; i--)
         {
@@ -416,64 +416,64 @@ class Leaderboard extends MainComponent
             }
             else
             {
-                if (name.trim().isEmpty() || name.trim().equals ("-1") || name.trim().equals ("-2") || name.trim().equals ("WIPED"))
+                if (name.trim().isEmpty() || name.trim().equals("-1") || name.trim().equals("-2") || name.trim().equals("WIPED"))
                 {
                     names.remove(i);
                 }
                 else
                 {
-                    names.set (i, name);
+                    names.set(i, name);
                 }
             }
         }
         
         if (names.isEmpty())
         {
-            searchField.setEditable (false);
-            searchField.setFocusable (false);
+            searchField.setEditable(false);
+            searchField.setFocusable(false);
             
-            JPanel panel = new JPanel (new GridBagLayout());
-            panel.setOpaque (false);
+            JPanel panel = new JPanel(new GridBagLayout());
+            panel.setOpaque(false);
             
-            JLabel label = new JLabel ("No one's here..", SwingConstants.CENTER);
-            label.setFont (Worker.getFont ("/quiz_generator/Font/Dekko-Regular.ttf", 1, 42.6f));
-            label.setForeground (Color.DARK_GRAY);
+            JLabel label = new JLabel("No one's here..", SwingConstants.CENTER);
+            label.setFont(Worker.getFont("/quiz_generator/Font/Dekko-Regular.ttf", 1, 42.6f));
+            label.setForeground(Color.DARK_GRAY);
             
-            panel.add (label);
+            panel.add(label);
             
-            scrollPane[0] = new JScrollPane (panel);
-            scrollPane[0].setBorder (BorderFactory.createEmptyBorder());
-            scrollPane[0].getViewport().setOpaque (false);
-            scrollPane[0].setOpaque (false);
-            scrollPane[0].setBounds (Worker.getBounds (386, 402, 1130, 518));
+            scrollPane[0] = new JScrollPane(panel);
+            scrollPane[0].setBorder(BorderFactory.createEmptyBorder());
+            scrollPane[0].getViewport().setOpaque(false);
+            scrollPane[0].setOpaque(false);
+            scrollPane[0].setBounds(Worker.getBounds(386, 402, 1130, 518));
         }
         else
         {
-            scrollPane[0] = Displayer.displayUser (frame, layout, highlightedTerms, names, this);
+            scrollPane[0] = Displayer.displayUser(frame, layout, highlightedTerms, names, this);
         }
         
-        layeredPane.add (scrollPane[0], Integer.valueOf(2));
+        layeredPane.add(scrollPane[0], Integer.valueOf(2));
         
-        hitbox.addMouseListener (new MouseAdapter()
+        hitbox.addMouseListener(new MouseAdapter()
         {
             @Override
-            public void mouseEntered (MouseEvent e)
+            public void mouseEntered(MouseEvent e)
             {
-                ImageIcon decoratorImage = Worker.getDecoratorImage ("/quiz_generator/Design/149.png", 209, 88);
-                decorators[1].setIcon (decoratorImage);
+                ImageIcon decoratorImage = Worker.getDecoratorImage("/quiz_generator/Design/149.png", 209, 88);
+                decorators[1].setIcon(decoratorImage);
             }
             
             @Override
-            public void mouseExited (MouseEvent e)
+            public void mouseExited(MouseEvent e)
             {
-                ImageIcon decoratorImage = Worker.getDecoratorImage ("/quiz_generator/Design/148.png", 209, 88);
-                decorators[1].setIcon (decoratorImage);
+                ImageIcon decoratorImage = Worker.getDecoratorImage("/quiz_generator/Design/148.png", 209, 88);
+                decorators[1].setIcon(decoratorImage);
             }
             
             @Override
-            public void mousePressed (MouseEvent e)
+            public void mousePressed(MouseEvent e)
             {
-                Database.setInUserScoreHistory (false);
+                Database.setInUserScoreHistory(false);
                 
                 new SwingWorker<Void, Void>()
                 {
@@ -486,17 +486,17 @@ class Leaderboard extends MainComponent
                     @Override
                     protected void done()
                     {
-                        changeComponents (frame);
+                        changeComponents(frame);
                         
-                        frontend.setPanel (null);
-                        frontend.setNextPanel (FrontendSharedData.Page.IN_LEADERBOARD);
-                        frontend.setPanel (background());
-                        frontend.getPanel().setLayout (layout);
-                        frontend.getPanel().add (showLeaderboard (frame, layout, highlightedTerms), "showLeaderboard");
+                        frontend.setPanel(null);
+                        frontend.setNextPanel(FrontendSharedData.Page.IN_LEADERBOARD);
+                        frontend.setPanel(background());
+                        frontend.getPanel().setLayout(layout);
+                        frontend.getPanel().add(showLeaderboard(frame, layout, highlightedTerms), "showLeaderboard");
                         
-                        layout.show (frontend.getPanel(), "showLeaderboard");
+                        layout.show(frontend.getPanel(), "showLeaderboard");
                         
-                        frame.add (frontend.getPanel());
+                        frame.add(frontend.getPanel());
                         frame.revalidate();
                         frame.repaint();
                     }
@@ -508,16 +508,16 @@ class Leaderboard extends MainComponent
         
         if (!names.isEmpty())
         {
-            searchField.addMouseListener (new MouseAdapter()
+            searchField.addMouseListener(new MouseAdapter()
             {
                 @Override
-                public void mousePressed (MouseEvent e)
+                public void mousePressed(MouseEvent e)
                 {
                     String check = searchField.getText().trim();
                 
-                    if (check.equals ("Search names...") && searchField.getForeground().equals (Color.DARK_GRAY)) searchField.setText("");
+                    if (check.equals("Search names...") && searchField.getForeground().equals(Color.DARK_GRAY)) searchField.setText("");
                
-                    searchField.setForeground (Color.BLACK);
+                    searchField.setForeground(Color.BLACK);
                 }
             
             });
@@ -526,14 +526,14 @@ class Leaderboard extends MainComponent
         MouseAdapter focusLoss = new MouseAdapter()
         {
             @Override
-            public void mousePressed (MouseEvent e)
+            public void mousePressed(MouseEvent e)
             {
                 String check = searchField.getText().trim();
                 
                 if (check.isEmpty())
                 {
-                    searchField.setForeground (Color.DARK_GRAY);
-                    searchField.setText ("Search names...");
+                    searchField.setForeground(Color.DARK_GRAY);
+                    searchField.setText("Search names...");
                 }
                 
                 frontend.getPanel().requestFocusInWindow();
@@ -541,22 +541,22 @@ class Leaderboard extends MainComponent
             
         };
         
-        ad.addDocumentListener (new DocumentListener()
+        ad.addDocumentListener(new DocumentListener()
         {
             @Override
-            public void insertUpdate (DocumentEvent e)
+            public void insertUpdate(DocumentEvent e)
             {
                 filterList();
             }
             
             @Override
-            public void removeUpdate (DocumentEvent e)
+            public void removeUpdate(DocumentEvent e)
             {
                 filterList();
             }
             
             @Override
-            public void changedUpdate (DocumentEvent e)
+            public void changedUpdate(DocumentEvent e)
             {
                 filterList();
             }
@@ -567,9 +567,9 @@ class Leaderboard extends MainComponent
                 
                 List<String> filter = new ArrayList<>();
                 
-                if ((query.equalsIgnoreCase ("Search names...") && searchField.getForeground().equals (Color.DARK_GRAY)) || query.isEmpty())
+                if ((query.equalsIgnoreCase("Search names...") && searchField.getForeground().equals(Color.DARK_GRAY)) || query.isEmpty())
                 {
-                    filter.addAll (names);
+                    filter.addAll(names);
                 }
                 else
                 {
@@ -577,73 +577,73 @@ class Leaderboard extends MainComponent
                     
                     for (String name : names)
                     {
-                        if (name.startsWith (query))
+                        if (name.startsWith(query))
                         {
-                            priorityList.add (name);
+                            priorityList.add(name);
                         }
-                        else if (name.contains (query))
+                        else if (name.contains(query))
                         {
-                            lastList.add (name);
+                            lastList.add(name);
                         }
                     }
                     
-                    filter.addAll (priorityList);
-                    filter.addAll (lastList);
+                    filter.addAll(priorityList);
+                    filter.addAll(lastList);
                 }
                 
-                layeredPane.remove (scrollPane[0]);
+                layeredPane.remove(scrollPane[0]);
                 
                 if (filter.isEmpty())
                 {
-                    JPanel panel = new JPanel (new GridBagLayout());
-                    panel.setOpaque (false);
+                    JPanel panel = new JPanel(new GridBagLayout());
+                    panel.setOpaque(false);
                     
-                    panel.addMouseListener (focusLoss);
+                    panel.addMouseListener(focusLoss);
                    
-                    JLabel label = new JLabel ("Nothing matches '" + query + "'", SwingConstants.CENTER);
-                    label.setFont (Worker.getFont ("/quiz_generator/Font/Dekko-Regular.ttf", 1, 42.6f));
-                    label.setForeground (Color.DARK_GRAY);
+                    JLabel label = new JLabel("Nothing matches '" + query + "'", SwingConstants.CENTER);
+                    label.setFont(Worker.getFont("/quiz_generator/Font/Dekko-Regular.ttf", 1, 42.6f));
+                    label.setForeground(Color.DARK_GRAY);
                     
-                    panel.add (label);
+                    panel.add(label);
                     
-                    scrollPane[0] = new JScrollPane (panel);
-                    scrollPane[0].setBorder (BorderFactory.createEmptyBorder());
-                    scrollPane[0].getViewport().setOpaque (false);
-                    scrollPane[0].setOpaque (false);
-                    scrollPane[0].setBounds (Worker.getBounds (386, 402, 1130, 518));
+                    scrollPane[0] = new JScrollPane(panel);
+                    scrollPane[0].setBorder(BorderFactory.createEmptyBorder());
+                    scrollPane[0].getViewport().setOpaque(false);
+                    scrollPane[0].setOpaque(false);
+                    scrollPane[0].setBounds(Worker.getBounds(386, 402, 1130, 518));
                 }
                 else
                 {
-                    scrollPane[0] = Displayer.displayUser (frame, layout, highlightedTerms, filter, Leaderboard.this);
+                    scrollPane[0] = Displayer.displayUser(frame, layout, highlightedTerms, filter, Leaderboard.this);
                 }
                 
-                layeredPane.add (scrollPane[0], Integer.valueOf(2));
+                layeredPane.add(scrollPane[0], Integer.valueOf(2));
                 layeredPane.revalidate();
                 layeredPane.repaint();
             }
             
         });
         
-        frontend.getPanel().addMouseListener (focusLoss);
+        frontend.getPanel().addMouseListener(focusLoss);
         
         List<JComponent> components = new ArrayList<>();
         
-        components.addAll (Arrays.asList (decorators));
-        components.add (searchField);
-        components.add (hitbox);
+        components.addAll(Arrays.asList(decorators));
+        components.add(searchField);
+        components.add(hitbox);
         
         for (int i = 0; i < components.size(); i++)
         {
-            layeredPane.add (components.get(i), Integer.valueOf(i));
+            layeredPane.add(components.get(i), Integer.valueOf(i));
         }
           
         return layeredPane;
     }
     
-    JLayeredPane individualScoreView (JFrame frame, CardLayout layout, List<String> highlightedTerms, String name)
+    JLayeredPane individualScoreView(JFrame frame, CardLayout layout, List<String> highlightedTerms, String name)
     {
         JLayeredPane layeredPane = new JLayeredPane();
-        layeredPane.setBounds (Worker.getBounds (0, 0, 1920, 1080));
+        layeredPane.setBounds(Worker.getBounds(0, 0, 1920, 1080));
         
         String[] decoratorImageName = {"/quiz_generator/Design/160.png", "/quiz_generator/Design/163.png", "/quiz_generator/Design/171.png", "/quiz_generator/Design/173.png", "/quiz_generator/Design/185.png"};
         int[] x = {305, 30, 1597, 234, 41};
@@ -655,95 +655,95 @@ class Leaderboard extends MainComponent
         
         for (int i = 0; i < decoratorImageName.length; i++)
         {
-            icons = Worker.getDecoratorImages (decoratorImageName, x[0], x[1]);
-            decorators[i] = new JLabel (icons[i]);
+            icons = Worker.getDecoratorImages(decoratorImageName, x[0], x[1]);
+            decorators[i] = new JLabel(icons[i]);
             
             hitboxes[i] = new JLabel();
-            hitboxes[i].setOpaque (false);
+            hitboxes[i].setOpaque(false);
             
             switch(i)
             {
                 case 0 ->
                 {
-                    hitboxes[i].setCursor (new Cursor (Cursor.HAND_CURSOR));
+                    hitboxes[i].setCursor(new Cursor(Cursor.HAND_CURSOR));
                     
-                    decorators[i].setBounds (Worker.getBounds (1561, 463, x[0], x[1]));
-                    hitboxes[i].setBounds (Worker.getBounds (1561, 463, x[0], x[1]));
+                    decorators[i].setBounds(Worker.getBounds(1561, 463, x[0], x[1]));
+                    hitboxes[i].setBounds(Worker.getBounds(1561, 463, x[0], x[1]));
                     
                     x[0] = 234;
                     x[1] = 283;
                 }
                 case 1 ->
                 {
-                    decorators[i].setBounds (Worker.getBounds (1597, 509, x[0], x[1]));
+                    decorators[i].setBounds(Worker.getBounds(1597, 509, x[0], x[1]));
                     
                     x[0] = 244;
                     x[1] = 99;
                 }
                 case 2 ->
                 {
-                    hitboxes[i].setCursor (new Cursor (Cursor.HAND_CURSOR));
+                    hitboxes[i].setCursor(new Cursor(Cursor.HAND_CURSOR));
                     
-                    decorators[i].setBounds (Worker.getBounds (1647, 58, x[0], x[1]));
-                    hitboxes[i].setBounds (Worker.getBounds (1647, 58, x[0], x[1]));
+                    decorators[i].setBounds(Worker.getBounds(1647, 58, x[0], x[1]));
+                    hitboxes[i].setBounds(Worker.getBounds(1647, 58, x[0], x[1]));
                     
                     x[0] = 525;
                     x[1] = 104;
                 }
                 case 3 ->
                 {
-                    hitboxes[i].setCursor (new Cursor (Cursor.HAND_CURSOR));
+                    hitboxes[i].setCursor(new Cursor(Cursor.HAND_CURSOR));
                     
-                    decorators[i].setBounds (Worker.getBounds (64, 264, x[0], x[1]));
-                    hitboxes[i].setBounds (Worker.getBounds (64, 264, x[0], x[1]));
+                    decorators[i].setBounds(Worker.getBounds(64, 264, x[0], x[1]));
+                    hitboxes[i].setBounds(Worker.getBounds(64, 264, x[0], x[1]));
                     
                     x[0] = 1028;
                     x[1] = 68;
                 }
-                case 4 -> decorators[i].setBounds (Worker.getBounds (387, 530, x[0], x[1]));
+                case 4 -> decorators[i].setBounds(Worker.getBounds(387, 530, x[0], x[1]));
             }
         }
         
-        decorators[1].setVisible (false);
+        decorators[1].setVisible(false);
            
-        JLabel username = new JLabel (name);
-        username.setFont (Worker.getFont ("/quiz_generator/Font/Arimo-Regular.ttf", 0, 71.0f));
-        username.setForeground (Color.BLACK);
-        username.setBounds (Worker.getBounds (259, 58, 510, 113));
+        JLabel username = new JLabel(name);
+        username.setFont(Worker.getFont("/quiz_generator/Font/Arimo-Regular.ttf", 0, 71.0f));
+        username.setForeground(Color.BLACK);
+        username.setBounds(Worker.getBounds(259, 58, 510, 113));
         
-        JLabel dropLabel = new JLabel ("ALL");
-        dropLabel.setFont (Worker.getFont ("/quiz_generator/Font/Arimo-Regular.ttf", 1, 19.4f));
-        dropLabel.setForeground (Color.BLACK);
-        dropLabel.setBounds (Worker.getBounds (1688, 463, 50, 30));
+        JLabel dropLabel = new JLabel("ALL");
+        dropLabel.setFont(Worker.getFont("/quiz_generator/Font/Arimo-Regular.ttf", 1, 19.4f));
+        dropLabel.setForeground(Color.BLACK);
+        dropLabel.setBounds(Worker.getBounds(1688, 463, 50, 30));
         
         JLabel[] dropHitboxes = new JLabel[7];
         
         for (int i = 0; i < 7; i++)
         {
             dropHitboxes[i] = new JLabel();
-            dropHitboxes[i].setCursor (new Cursor (Cursor.HAND_CURSOR));
-            dropHitboxes[i].setOpaque (false);
+            dropHitboxes[i].setCursor(new Cursor(Cursor.HAND_CURSOR));
+            dropHitboxes[i].setOpaque(false);
             
             switch(i)
             {
-                case 0 -> dropHitboxes[i].setBounds (Worker.getBounds (x[2], 509, x[3], x[4]));
-                case 1 -> dropHitboxes[i].setBounds (Worker.getBounds (x[2], 550, x[3], x[4]));
-                case 2 -> dropHitboxes[i].setBounds (Worker.getBounds (x[2], 590, x[3], x[4]));
-                case 3 -> dropHitboxes[i].setBounds (Worker.getBounds (x[2], 630, x[3], x[4]));
-                case 4 -> dropHitboxes[i].setBounds (Worker.getBounds (x[2], 670, x[3], x[4]));
-                case 5 -> dropHitboxes[i].setBounds (Worker.getBounds (x[2], 711, x[3], x[4]));
-                case 6 -> dropHitboxes[i].setBounds (Worker.getBounds (x[2], 751, x[3], x[4]));
+                case 0 -> dropHitboxes[i].setBounds(Worker.getBounds(x[2], 509, x[3], x[4]));
+                case 1 -> dropHitboxes[i].setBounds(Worker.getBounds(x[2], 550, x[3], x[4]));
+                case 2 -> dropHitboxes[i].setBounds(Worker.getBounds(x[2], 590, x[3], x[4]));
+                case 3 -> dropHitboxes[i].setBounds(Worker.getBounds(x[2], 630, x[3], x[4]));
+                case 4 -> dropHitboxes[i].setBounds(Worker.getBounds(x[2], 670, x[3], x[4]));
+                case 5 -> dropHitboxes[i].setBounds(Worker.getBounds(x[2], 711, x[3], x[4]));
+                case 6 -> dropHitboxes[i].setBounds(Worker.getBounds(x[2], 751, x[3], x[4]));
             }
             
-            dropHitboxes[i].setVisible (false);
+            dropHitboxes[i].setVisible(false);
         }
         
-        List<String> records = Database.loadForScoreHistory ("HISTORY", name, null);
+        List<String> records = Database.loadForScoreHistory("HISTORY", name, null);
         
         JScrollPane[] scrollPane = new JScrollPane[1];
-        scrollPane[0] = Displayer.displayScoreHistory (records);
+        scrollPane[0] = Displayer.displayScoreHistory(records);
         
-        layeredPane.add (scrollPane[0], Integer.valueOf(2));
+        layeredPane.add(scrollPane[0], Integer.valueOf(2));
         
         boolean[] toggle = {false};
         
@@ -755,56 +755,56 @@ class Leaderboard extends MainComponent
             {
                 case 0 ->
                 {
-                    hitboxes[j].addMouseListener (new MouseAdapter()
+                    hitboxes[j].addMouseListener(new MouseAdapter()
                     {
                         @Override
-                        public void mouseEntered (MouseEvent e)
+                        public void mouseEntered(MouseEvent e)
                         {
-                            ImageIcon decoratorImage = Worker.getDecoratorImage ("/quiz_generator/Design/161.png", 305, 30);
-                            decorators[j].setIcon (decoratorImage);
+                            ImageIcon decoratorImage = Worker.getDecoratorImage("/quiz_generator/Design/161.png", 305, 30);
+                            decorators[j].setIcon(decoratorImage);
                         }
                         
                         @Override
-                        public void mouseExited (MouseEvent e)
+                        public void mouseExited(MouseEvent e)
                         {
-                            ImageIcon toggleOff = Worker.getDecoratorImage ("/quiz_generator/Design/160.png", 305, 30);
-                            ImageIcon toggleOn = Worker.getDecoratorImage ("/quiz_generator/Design/162.png", 305, 30);
+                            ImageIcon toggleOff = Worker.getDecoratorImage("/quiz_generator/Design/160.png", 305, 30);
+                            ImageIcon toggleOn = Worker.getDecoratorImage("/quiz_generator/Design/162.png", 305, 30);
                             
-                            decorators[j].setIcon ((toggle[0]) ? toggleOn : toggleOff);
+                            decorators[j].setIcon((toggle[0]) ? toggleOn : toggleOff);
                         }
                         
                         @Override
-                        public void mousePressed (MouseEvent e)
+                        public void mousePressed(MouseEvent e)
                         {
                             toggle[0] = !toggle[0];
                             
                             if (toggle[0])
                             {
-                                ImageIcon toggleOn = Worker.getDecoratorImage ("/quiz_generator/Design/162.png", 305, 30);
-                                decorators[j].setIcon (toggleOn);
+                                ImageIcon toggleOn = Worker.getDecoratorImage("/quiz_generator/Design/162.png", 305, 30);
+                                decorators[j].setIcon(toggleOn);
                             
-                                decorators[1].setVisible (true);
+                                decorators[1].setVisible(true);
                                 
                                 for (JLabel dropHitbox : dropHitboxes)
                                 {
-                                    dropHitbox.setVisible (true);
+                                    dropHitbox.setVisible(true);
                                 }
                                 
-                                dropLabel.setForeground (Color.GRAY);
+                                dropLabel.setForeground(Color.GRAY);
                             }
                             else
                             {
-                                ImageIcon toggleOff = Worker.getDecoratorImage ("/quiz_generator/Design/160.png", 305, 30);
-                                decorators[j].setIcon (toggleOff);
+                                ImageIcon toggleOff = Worker.getDecoratorImage("/quiz_generator/Design/160.png", 305, 30);
+                                decorators[j].setIcon(toggleOff);
                             
-                                decorators[1].setVisible (false);
+                                decorators[1].setVisible(false);
                                 
                                 for (JLabel dropHitbox : dropHitboxes)
                                 {
-                                    dropHitbox.setVisible (false);
+                                    dropHitbox.setVisible(false);
                                 }
                                 
-                                dropLabel.setForeground (Color.BLACK);
+                                dropLabel.setForeground(Color.BLACK);
                             }
                         }
                         
@@ -812,24 +812,24 @@ class Leaderboard extends MainComponent
                 }
                 case 2 ->
                 {
-                    hitboxes[j].addMouseListener (new MouseAdapter()
+                    hitboxes[j].addMouseListener(new MouseAdapter()
                     {
                         @Override
-                        public void mouseEntered (MouseEvent e)
+                        public void mouseEntered(MouseEvent e)
                         {
-                            ImageIcon decoratorImage = Worker.getDecoratorImage ("/quiz_generator/Design/172.png", 244, 99);
-                            decorators[j].setIcon (decoratorImage);
+                            ImageIcon decoratorImage = Worker.getDecoratorImage("/quiz_generator/Design/172.png", 244, 99);
+                            decorators[j].setIcon(decoratorImage);
                         }
                         
                         @Override
-                        public void mouseExited (MouseEvent e)
+                        public void mouseExited(MouseEvent e)
                         {
-                            ImageIcon decoratorImage = Worker.getDecoratorImage ("/quiz_generator/Design/171.png", 244, 99);
-                            decorators[j].setIcon (decoratorImage);
+                            ImageIcon decoratorImage = Worker.getDecoratorImage("/quiz_generator/Design/171.png", 244, 99);
+                            decorators[j].setIcon(decoratorImage);
                         }
                         
                         @Override
-                        public void mousePressed (MouseEvent e)
+                        public void mousePressed(MouseEvent e)
                         {
                             new SwingWorker<Void, Void>()
                             {
@@ -842,17 +842,17 @@ class Leaderboard extends MainComponent
                                 @Override
                                 protected void done()
                                 {
-                                    changeComponents (frame);
+                                    changeComponents(frame);
                                     
-                                    frontend.setPanel (null);
-                                    frontend.setNextPanel (FrontendSharedData.Page.SCORE_HISTORY_PAGE_1);
-                                    frontend.setPanel (background());
-                                    frontend.getPanel().setLayout (layout);
-                                    frontend.getPanel().add (userListSearching (frame, layout, highlightedTerms), "userListSearching");
+                                    frontend.setPanel(null);
+                                    frontend.setNextPanel(FrontendSharedData.Page.SCORE_HISTORY_PAGE_1);
+                                    frontend.setPanel(background());
+                                    frontend.getPanel().setLayout(layout);
+                                    frontend.getPanel().add(userListSearching(frame, layout, highlightedTerms), "userListSearching");
                                     
-                                    layout.show (frontend.getPanel(), "userListSearching");
+                                    layout.show(frontend.getPanel(), "userListSearching");
                                     
-                                    frame.add (frontend.getPanel());
+                                    frame.add(frontend.getPanel());
                                     frame.revalidate();
                                     frame.repaint();
                                 }
@@ -864,35 +864,35 @@ class Leaderboard extends MainComponent
                 }
                 case 3 ->
                 {
-                    hitboxes[j].addMouseListener (new MouseAdapter()
+                    hitboxes[j].addMouseListener(new MouseAdapter()
                     {
                         @Override
-                        public void mouseEntered (MouseEvent e)
+                        public void mouseEntered(MouseEvent e)
                         {
-                            if (frame.getLayeredPane().getComponentCountInLayer (JLayeredPane.POPUP_LAYER) > 0) return;
+                            if (frame.getLayeredPane().getComponentCountInLayer(JLayeredPane.POPUP_LAYER) > 0) return;
                             
-                            ImageIcon decoratorImage = Worker.getDecoratorImage ("/quiz_generator/Design/174.png", 525, 104);
-                            decorators[j].setIcon (decoratorImage);
+                            ImageIcon decoratorImage = Worker.getDecoratorImage("/quiz_generator/Design/174.png", 525, 104);
+                            decorators[j].setIcon(decoratorImage);
                         }
                         
                         @Override
-                        public void mouseExited (MouseEvent e)
+                        public void mouseExited(MouseEvent e)
                         {
-                            if (frame.getLayeredPane().getComponentCountInLayer (JLayeredPane.POPUP_LAYER) > 0) return;
+                            if (frame.getLayeredPane().getComponentCountInLayer(JLayeredPane.POPUP_LAYER) > 0) return;
                             
-                            ImageIcon decoratorImage = Worker.getDecoratorImage ("/quiz_generator/Design/173.png", 525, 104);
-                            decorators[j].setIcon (decoratorImage);
+                            ImageIcon decoratorImage = Worker.getDecoratorImage("/quiz_generator/Design/173.png", 525, 104);
+                            decorators[j].setIcon(decoratorImage);
                         }
                         
                         @Override
-                        public void mousePressed (MouseEvent e)
+                        public void mousePressed(MouseEvent e)
                         {
-                            if (frame.getLayeredPane().getComponentCountInLayer (JLayeredPane.POPUP_LAYER) > 0) return;
+                            if (frame.getLayeredPane().getComponentCountInLayer(JLayeredPane.POPUP_LAYER) > 0) return;
                             
-                            ImageIcon decoratorImage = Worker.getDecoratorImage ("/quiz_generator/Design/174.png", 525, 104);
-                            decorators[j].setIcon (decoratorImage);
+                            ImageIcon decoratorImage = Worker.getDecoratorImage("/quiz_generator/Design/174.png", 525, 104);
+                            decorators[j].setIcon(decoratorImage);
                             
-                            frontend.getState().add (FrontendSharedData.Condition.DELETE_IS_CLICKED);
+                            frontend.getState().add(FrontendSharedData.Condition.DELETE_IS_CLICKED);
                             
                             new SwingWorker<Void, Void>()
                             {
@@ -905,16 +905,16 @@ class Leaderboard extends MainComponent
                                 @Override
                                 protected void done()
                                 {
-                                    configurator.notificationPanel (frame, layout, highlightedTerms, name);
+                                    configurator.notificationPanel(frame, layout, highlightedTerms, name);
                                 }
                                 
                             }.execute();
                             
-                            javax.swing.Timer watcher = new javax.swing.Timer (100, e_2 ->
+                            javax.swing.Timer watcher = new javax.swing.Timer(100, e_2 ->
                             {
-                                if (frame.getLayeredPane().getComponentCountInLayer (JLayeredPane.POPUP_LAYER) == 0)
+                                if (frame.getLayeredPane().getComponentCountInLayer(JLayeredPane.POPUP_LAYER) == 0)
                                 {
-                                    decorators[j].setIcon (Worker.getDecoratorImage ("/quiz_generator/Design/173.png", 525, 104));
+                                    decorators[j].setIcon(Worker.getDecoratorImage("/quiz_generator/Design/173.png", 525, 104));
                                     
                                     ((javax.swing.Timer) e_2.getSource()).stop();
                                 }
@@ -931,56 +931,56 @@ class Leaderboard extends MainComponent
         
         for (int i = 0; i < 7; i++)
         {                   
-            dropHitboxes[i].setVisible (true);
+            dropHitboxes[i].setVisible(true);
                                 
             switch(i)
             {
                 case 0 ->
                 {
-                    dropHitboxes[i].addMouseListener (new MouseAdapter()
+                    dropHitboxes[i].addMouseListener(new MouseAdapter()
                     {
                         @Override
-                        public void mouseEntered (MouseEvent e)
+                        public void mouseEntered(MouseEvent e)
                         {
-                            ImageIcon decoratorImage = Worker.getDecoratorImage ("/quiz_generator/Design/164.png", 234, 283);
-                            decorators[1].setIcon (decoratorImage);
+                            ImageIcon decoratorImage = Worker.getDecoratorImage("/quiz_generator/Design/164.png", 234, 283);
+                            decorators[1].setIcon(decoratorImage);
                         }
                                             
                         @Override
-                        public void mouseExited (MouseEvent e)
+                        public void mouseExited(MouseEvent e)
                         {
-                            ImageIcon decoratorImage = Worker.getDecoratorImage ("/quiz_generator/Design/163.png", 234, 283);
-                            decorators[1].setIcon (decoratorImage);
+                            ImageIcon decoratorImage = Worker.getDecoratorImage("/quiz_generator/Design/163.png", 234, 283);
+                            decorators[1].setIcon(decoratorImage);
                         }
                                             
                         @Override
-                        public void mousePressed (MouseEvent e)
+                        public void mousePressed(MouseEvent e)
                         {
                             toggle[0] = false;
                             
-                            ImageIcon decoratorImage = Worker.getDecoratorImage ("/quiz_generator/Design/160.png", 305, 30);
-                            decorators[0].setIcon (decoratorImage);
+                            ImageIcon decoratorImage = Worker.getDecoratorImage("/quiz_generator/Design/160.png", 305, 30);
+                            decorators[0].setIcon(decoratorImage);
                             
-                            dropLabel.setText ("ALL");
-                            dropLabel.setFont (Worker.getFont ("/quiz_generator/Font/Arimo-Regular.ttf", 1, 19.4f));
-                            dropLabel.setForeground (Color.BLACK);
-                            dropLabel.setBounds (Worker.getBounds (1688, 463, 50, 30));
+                            dropLabel.setText("ALL");
+                            dropLabel.setFont(Worker.getFont("/quiz_generator/Font/Arimo-Regular.ttf", 1, 19.4f));
+                            dropLabel.setForeground(Color.BLACK);
+                            dropLabel.setBounds(Worker.getBounds(1688, 463, 50, 30));
                             
-                            decorators[1].setVisible (false);
-                            decorators[4].setVisible (true);
+                            decorators[1].setVisible(false);
+                            decorators[4].setVisible(true);
                             
                             for (JLabel dropHitbox : dropHitboxes)
                             {
-                                dropHitbox.setVisible (false);
+                                dropHitbox.setVisible(false);
                             }
                             
-                            layeredPane.remove (scrollPane[0]);
+                            layeredPane.remove(scrollPane[0]);
                             
-                            List<String> records = Database.loadForScoreHistory ("HISTORY", name, null);
+                            List<String> records = Database.loadForScoreHistory("HISTORY", name, null);
                             
-                            scrollPane[0] = Displayer.displayScoreHistory (records);
+                            scrollPane[0] = Displayer.displayScoreHistory(records);
                             
-                            layeredPane.add (scrollPane[0], Integer.valueOf(2));
+                            layeredPane.add(scrollPane[0], Integer.valueOf(2));
                             layeredPane.revalidate();
                             layeredPane.repaint();
                         }
@@ -989,106 +989,106 @@ class Leaderboard extends MainComponent
                 }
                 case 1 ->
                 {
-                    dropHitboxes[i].addMouseListener (new MouseAdapter()
+                    dropHitboxes[i].addMouseListener(new MouseAdapter()
                     {
                         @Override
-                        public void mouseEntered (MouseEvent e)
+                        public void mouseEntered(MouseEvent e)
                         {
-                            ImageIcon decoratorImage = Worker.getDecoratorImage ("/quiz_generator/Design/165.png", 234, 283);
-                            decorators[1].setIcon (decoratorImage);
+                            ImageIcon decoratorImage = Worker.getDecoratorImage("/quiz_generator/Design/165.png", 234, 283);
+                            decorators[1].setIcon(decoratorImage);
                         }
                                             
                         @Override
-                        public void mouseExited (MouseEvent e)
+                        public void mouseExited(MouseEvent e)
                         {
-                            ImageIcon decoratorImage = Worker.getDecoratorImage ("/quiz_generator/Design/163.png", 234, 283);
-                            decorators[1].setIcon (decoratorImage);
+                            ImageIcon decoratorImage = Worker.getDecoratorImage("/quiz_generator/Design/163.png", 234, 283);
+                            decorators[1].setIcon(decoratorImage);
                         }
                                             
                         @Override
-                        public void mousePressed (MouseEvent e)
+                        public void mousePressed(MouseEvent e)
                         {
                             toggle[0] = false;
                             
-                            ImageIcon decoratorImage = Worker.getDecoratorImage ("/quiz_generator/Design/160.png", 305, 30);
-                            decorators[0].setIcon (decoratorImage);
+                            ImageIcon decoratorImage = Worker.getDecoratorImage("/quiz_generator/Design/160.png", 305, 30);
+                            decorators[0].setIcon(decoratorImage);
                             
-                            dropLabel.setText ("DATE");
-                            dropLabel.setFont (Worker.getFont ("/quiz_generator/Font/Arimo-Regular.ttf", 1, 19.4f));
-                            dropLabel.setForeground (Color.BLACK);
-                            dropLabel.setBounds (Worker.getBounds (1679, 463, 68, 30));
+                            dropLabel.setText("DATE");
+                            dropLabel.setFont(Worker.getFont("/quiz_generator/Font/Arimo-Regular.ttf", 1, 19.4f));
+                            dropLabel.setForeground(Color.BLACK);
+                            dropLabel.setBounds(Worker.getBounds(1679, 463, 68, 30));
                             
-                            decorators[1].setVisible (false);
+                            decorators[1].setVisible(false);
                             
                             for (JLabel dropHitbox : dropHitboxes)
                             {
-                                dropHitbox.setVisible (false);
+                                dropHitbox.setVisible(false);
                             }
                             
-                            String selector = ImageDateSelector.getDateSelector (frame);
+                            String selector = ImageDateSelector.getDateSelector(frame);
                             
                             if (selector != null)
                             {
-                                DateTimeFormatter uiFormat = DateTimeFormatter.ofPattern ("MM-dd-yyyy");
-                                DateTimeFormatter dataFormat = DateTimeFormatter.ofPattern ("yyyy-MM-dd");
+                                DateTimeFormatter uiFormat = DateTimeFormatter.ofPattern("MM-dd-yyyy");
+                                DateTimeFormatter dataFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                                 
-                                String target = LocalDate.parse (selector, uiFormat).format (dataFormat);
+                                String target = LocalDate.parse(selector, uiFormat).format(dataFormat);
                                 
-                                List<String> records = Database.loadForScoreHistory ("HISTORY", name, null), filter = new ArrayList<>();
+                                List<String> records = Database.loadForScoreHistory("HISTORY", name, null), filter = new ArrayList<>();
                                 
                                 for (int i = 0; i < records.size(); i += 3)
                                 {
                                     String date = records.get(i);
                                     
-                                    if (date.startsWith (target))
+                                    if (date.startsWith(target))
                                     {
-                                        filter.add (records.get(i));
-                                        filter.add (records.get (i + 1));
-                                        filter.add (records.get (i + 2));
+                                        filter.add(records.get(i));
+                                        filter.add(records.get(i + 1));
+                                        filter.add(records.get(i + 2));
                                     }
                                 }
                                 
-                                layeredPane.remove (scrollPane[0]);
+                                layeredPane.remove(scrollPane[0]);
                                 
                                 if (filter.isEmpty())
                                 {
-                                    decorators[4].setVisible (false);
+                                    decorators[4].setVisible(false);
                                     
                                     scrollPane[0] = Displayer.displayNoResultFound();
                                 }
                                 else
                                 {
-                                    decorators[4].setVisible (true);
+                                    decorators[4].setVisible(true);
                                     
-                                    scrollPane[0] = Displayer.displayScoreHistory (filter);
+                                    scrollPane[0] = Displayer.displayScoreHistory(filter);
                                 }
                                 
-                                layeredPane.add (scrollPane[0], Integer.valueOf(2));
+                                layeredPane.add(scrollPane[0], Integer.valueOf(2));
                                 layeredPane.revalidate();
                                 layeredPane.repaint();
                             }
                             else
                             {
-                                dropLabel.setText ("ALL");
-                                dropLabel.setFont (Worker.getFont ("/quiz_generator/Font/Arimo-Regular.ttf", 1, 19.4f));
-                                dropLabel.setForeground (Color.BLACK);
-                                dropLabel.setBounds (Worker.getBounds (1688, 463, 50, 30));
+                                dropLabel.setText("ALL");
+                                dropLabel.setFont(Worker.getFont("/quiz_generator/Font/Arimo-Regular.ttf", 1, 19.4f));
+                                dropLabel.setForeground(Color.BLACK);
+                                dropLabel.setBounds(Worker.getBounds(1688, 463, 50, 30));
                             
-                                decorators[1].setVisible (false);
-                                decorators[4].setVisible (true);
+                                decorators[1].setVisible(false);
+                                decorators[4].setVisible(true);
                             
                                 for (JLabel dropHitbox : dropHitboxes)
                                 {
-                                    dropHitbox.setVisible (false);
+                                    dropHitbox.setVisible(false);
                                 }
                             
-                                layeredPane.remove (scrollPane[0]);
+                                layeredPane.remove(scrollPane[0]);
                             
-                                List<String> records = Database.loadForScoreHistory ("HISTORY", name, null);
+                                List<String> records = Database.loadForScoreHistory("HISTORY", name, null);
                             
-                                scrollPane[0] = Displayer.displayScoreHistory (records);
+                                scrollPane[0] = Displayer.displayScoreHistory(records);
                             
-                                layeredPane.add (scrollPane[0], Integer.valueOf(2));
+                                layeredPane.add(scrollPane[0], Integer.valueOf(2));
                                 layeredPane.revalidate();
                                 layeredPane.repaint();
                             }
@@ -1098,61 +1098,61 @@ class Leaderboard extends MainComponent
                 }
                 case 2 ->
                 {
-                    dropHitboxes[i].addMouseListener (new MouseAdapter()
+                    dropHitboxes[i].addMouseListener(new MouseAdapter()
                     {
                         @Override
-                        public void mouseEntered (MouseEvent e)
+                        public void mouseEntered(MouseEvent e)
                         {
-                            ImageIcon decoratorImage = Worker.getDecoratorImage ("/quiz_generator/Design/166.png", 234, 283);
-                            decorators[1].setIcon (decoratorImage);
+                            ImageIcon decoratorImage = Worker.getDecoratorImage("/quiz_generator/Design/166.png", 234, 283);
+                            decorators[1].setIcon(decoratorImage);
                         }
                         
                         @Override
-                        public void mouseExited (MouseEvent e)
+                        public void mouseExited(MouseEvent e)
                         {
-                            ImageIcon decoratorImage = Worker.getDecoratorImage ("/quiz_generator/Design/163.png", 234, 283);
-                            decorators[1].setIcon (decoratorImage);
+                            ImageIcon decoratorImage = Worker.getDecoratorImage("/quiz_generator/Design/163.png", 234, 283);
+                            decorators[1].setIcon(decoratorImage);
                         }
                         
                         @Override
-                        public void mousePressed (MouseEvent e)
+                        public void mousePressed(MouseEvent e)
                         {
                             toggle[0] = false;
                             
-                            ImageIcon decoratorImage = Worker.getDecoratorImage ("/quiz_generator/Design/160.png", 305, 30);
-                            decorators[0].setIcon (decoratorImage);
+                            ImageIcon decoratorImage = Worker.getDecoratorImage("/quiz_generator/Design/160.png", 305, 30);
+                            decorators[0].setIcon(decoratorImage);
                             
-                            dropLabel.setText ("HIGHEST-LOWEST SCORE");
-                            dropLabel.setFont (Worker.getFont ("/quiz_generator/Font/Arimo-Regular.ttf", 1, 12.4f));
-                            dropLabel.setForeground (Color.BLACK);
-                            dropLabel.setBounds (Worker.getBounds (1617, 469, 217, 19));
+                            dropLabel.setText("HIGHEST-LOWEST SCORE");
+                            dropLabel.setFont(Worker.getFont("/quiz_generator/Font/Arimo-Regular.ttf", 1, 12.4f));
+                            dropLabel.setForeground(Color.BLACK);
+                            dropLabel.setBounds(Worker.getBounds(1617, 469, 217, 19));
                             
-                            decorators[1].setVisible (false);
-                            decorators[4].setVisible (true);
+                            decorators[1].setVisible(false);
+                            decorators[4].setVisible(true);
                             
                             for (JLabel dropHitbox : dropHitboxes)
                             {
-                                dropHitbox.setVisible (false);
+                                dropHitbox.setVisible(false);
                             }
                             
-                            layeredPane.remove (scrollPane[0]);
+                            layeredPane.remove(scrollPane[0]);
                             
-                            List<String> records = Database.loadForScoreHistory ("HISTORY", name, null);
+                            List<String> records = Database.loadForScoreHistory("HISTORY", name, null);
                             
                             List<String[]> grouped = new ArrayList<>();
                             
                             for (int i = 0; i < records.size(); i += 3)
                             {
-                                grouped.add (new String[] { records.get(i), records.get (i + 1), records.get (i + 2) });
+                                grouped.add(new String[] { records.get(i), records.get(i + 1), records.get(i + 2) });
                             }
                             
-                            grouped.sort ((a, b) ->
+                            grouped.sort((a, b) ->
                             {
                                 try
                                 {
-                                    int scoreA = Integer.parseInt (a[1]), scoreB = Integer.parseInt (b[1]);
+                                    int scoreA = Integer.parseInt(a[1]), scoreB = Integer.parseInt(b[1]);
                                     
-                                    return Integer.compare (scoreB, scoreA);
+                                    return Integer.compare(scoreB, scoreA);
                                 }
                                 catch (NumberFormatException e_2)
                                 {
@@ -1165,9 +1165,9 @@ class Leaderboard extends MainComponent
                             
                             for (String[] group : grouped)
                             {
-                                sorted.add (group[0]);
-                                sorted.add (group[1]);
-                                sorted.add (group[2]);
+                                sorted.add(group[0]);
+                                sorted.add(group[1]);
+                                sorted.add(group[2]);
                             }
                             
                             boolean execute = true;
@@ -1178,7 +1178,7 @@ class Leaderboard extends MainComponent
                                 
                                 for (int i = 4; i < records.size(); i += 3)
                                 {
-                                    if (!records.get(i).equals (firstScore))
+                                    if (!records.get(i).equals(firstScore))
                                     {
                                         execute = false;
                                         
@@ -1189,18 +1189,18 @@ class Leaderboard extends MainComponent
                             
                             if (execute)
                             {
-                                decorators[4].setVisible (false);
+                                decorators[4].setVisible(false);
                                 
                                 scrollPane[0] = Displayer.displayNoResultFound();
                             }
                             else
                             {
-                                decorators[4].setVisible (true);
+                                decorators[4].setVisible(true);
                                 
-                                scrollPane[0] = Displayer.displayScoreHistory (sorted);
+                                scrollPane[0] = Displayer.displayScoreHistory(sorted);
                             }
                             
-                            layeredPane.add (scrollPane[0], Integer.valueOf(2));
+                            layeredPane.add(scrollPane[0], Integer.valueOf(2));
                             layeredPane.revalidate();
                             layeredPane.repaint();
                         }
@@ -1209,61 +1209,61 @@ class Leaderboard extends MainComponent
                 }
                 case 3 ->
                 {
-                    dropHitboxes[i].addMouseListener (new MouseAdapter()
+                    dropHitboxes[i].addMouseListener(new MouseAdapter()
                     {
                         @Override
-                        public void mouseEntered (MouseEvent e)
+                        public void mouseEntered(MouseEvent e)
                         {
-                            ImageIcon decoratorImage = Worker.getDecoratorImage ("/quiz_generator/Design/167.png", 234, 283);
-                            decorators[1].setIcon (decoratorImage);
+                            ImageIcon decoratorImage = Worker.getDecoratorImage("/quiz_generator/Design/167.png", 234, 283);
+                            decorators[1].setIcon(decoratorImage);
                         }
                         
                         @Override
-                        public void mouseExited (MouseEvent e)
+                        public void mouseExited(MouseEvent e)
                         {
-                            ImageIcon decoratorImage = Worker.getDecoratorImage ("/quiz_generator/Design/163.png", 234, 283);
-                            decorators[1].setIcon (decoratorImage);
+                            ImageIcon decoratorImage = Worker.getDecoratorImage("/quiz_generator/Design/163.png", 234, 283);
+                            decorators[1].setIcon(decoratorImage);
                         }
                         
                         @Override
-                        public void mousePressed (MouseEvent e)
+                        public void mousePressed(MouseEvent e)
                         {
                             toggle[0] = false;
                             
-                            ImageIcon decoratorImage = Worker.getDecoratorImage ("/quiz_generator/Design/160.png", 305, 30);
-                            decorators[0].setIcon (decoratorImage);
+                            ImageIcon decoratorImage = Worker.getDecoratorImage("/quiz_generator/Design/160.png", 305, 30);
+                            decorators[0].setIcon(decoratorImage);
                             
-                            dropLabel.setText ("LOWEST-HIGHEST SCORE");
-                            dropLabel.setFont (Worker.getFont ("/quiz_generator/Font/Arimo-Regular.ttf", 1, 12.4f));
-                            dropLabel.setForeground (Color.BLACK);
-                            dropLabel.setBounds (Worker.getBounds (1617, 469, 217, 19));
+                            dropLabel.setText("LOWEST-HIGHEST SCORE");
+                            dropLabel.setFont(Worker.getFont("/quiz_generator/Font/Arimo-Regular.ttf", 1, 12.4f));
+                            dropLabel.setForeground(Color.BLACK);
+                            dropLabel.setBounds(Worker.getBounds (1617, 469, 217, 19));
                             
-                            decorators[1].setVisible (false);
-                            decorators[4].setVisible (true);
+                            decorators[1].setVisible(false);
+                            decorators[4].setVisible(true);
                             
                             for (JLabel dropHitbox : dropHitboxes)
                             {
-                                dropHitbox.setVisible (false);
+                                dropHitbox.setVisible(false);
                             }
                             
-                            layeredPane.remove (scrollPane[0]);
+                            layeredPane.remove(scrollPane[0]);
                             
-                            List<String> records = Database.loadForScoreHistory ("HISTORY", name, null);
+                            List<String> records = Database.loadForScoreHistory("HISTORY", name, null);
                             
                             List<String[]> grouped = new ArrayList<>();
                             
                             for (int i = 0; i < records.size(); i += 3)
                             {
-                                grouped.add (new String[] { records.get(i), records.get (i + 1), records.get (i + 2) });
+                                grouped.add(new String[] { records.get(i), records.get(i + 1), records.get(i + 2) });
                             }
                             
-                            grouped.sort ((a, b) ->
+                            grouped.sort((a, b) ->
                             {
                                 try
                                 {
-                                    int scoreA = Integer.parseInt (a[1]), scoreB = Integer.parseInt (b[1]);
+                                    int scoreA = Integer.parseInt(a[1]), scoreB = Integer.parseInt(b[1]);
                                     
-                                    return Integer.compare (scoreA, scoreB);
+                                    return Integer.compare(scoreA, scoreB);
                                 }
                                 catch (NumberFormatException e_2)
                                 {
@@ -1276,9 +1276,9 @@ class Leaderboard extends MainComponent
                             
                             for (String[] group : grouped)
                             {
-                                sorted.add (group[0]);
-                                sorted.add (group[1]);
-                                sorted.add (group[2]);
+                                sorted.add(group[0]);
+                                sorted.add(group[1]);
+                                sorted.add(group[2]);
                             }
                             
                             boolean execute = true;
@@ -1289,7 +1289,7 @@ class Leaderboard extends MainComponent
                                 
                                 for (int i = 4; i < records.size(); i += 3)
                                 {
-                                    if (!records.get(i).equals (firstScore))
+                                    if (!records.get(i).equals(firstScore))
                                     {
                                         execute = false;
                                         
@@ -1300,18 +1300,18 @@ class Leaderboard extends MainComponent
                             
                             if (execute)
                             {
-                                decorators[4].setVisible (false);
+                                decorators[4].setVisible(false);
                                 
                                 scrollPane[0] = Displayer.displayNoResultFound();
                             }
                             else
                             {
-                                decorators[4].setVisible (true);
+                                decorators[4].setVisible(true);
                                 
-                                scrollPane[0] = Displayer.displayScoreHistory (sorted);
+                                scrollPane[0] = Displayer.displayScoreHistory(sorted);
                             }
                             
-                            layeredPane.add (scrollPane[0], Integer.valueOf(2));
+                            layeredPane.add(scrollPane[0], Integer.valueOf(2));
                             layeredPane.revalidate();
                             layeredPane.repaint();
                         }
@@ -1320,58 +1320,58 @@ class Leaderboard extends MainComponent
                 }
                 case 4 ->
                 {
-                    dropHitboxes[i].addMouseListener (new MouseAdapter()
+                    dropHitboxes[i].addMouseListener(new MouseAdapter()
                     {
                         @Override
-                        public void mouseEntered (MouseEvent e)
+                        public void mouseEntered(MouseEvent e)
                         {
-                            ImageIcon decoratorImage = Worker.getDecoratorImage ("/quiz_generator/Design/168.png", 234, 283);
-                            decorators[1].setIcon (decoratorImage);
+                            ImageIcon decoratorImage = Worker.getDecoratorImage("/quiz_generator/Design/168.png", 234, 283);
+                            decorators[1].setIcon(decoratorImage);
                         }
                         
                         @Override
-                        public void mouseExited (MouseEvent e)
+                        public void mouseExited(MouseEvent e)
                         {
-                            ImageIcon decoratorImage = Worker.getDecoratorImage ("/quiz_generator/Design/163.png", 234, 283);
-                            decorators[1].setIcon (decoratorImage);
+                            ImageIcon decoratorImage = Worker.getDecoratorImage("/quiz_generator/Design/163.png", 234, 283);
+                            decorators[1].setIcon(decoratorImage);
                         }
                         
                         @Override
-                        public void mousePressed (MouseEvent e)
+                        public void mousePressed(MouseEvent e)
                         {
                             toggle[0] = false;
                             
-                            ImageIcon decoratorImage = Worker.getDecoratorImage ("/quiz_generator/Design/160.png", 305, 30);
-                            decorators[0].setIcon (decoratorImage);
+                            ImageIcon decoratorImage = Worker.getDecoratorImage("/quiz_generator/Design/160.png", 305, 30);
+                            decorators[0].setIcon(decoratorImage);
                             
-                            dropLabel.setText ("PERFECT SCORE");
-                            dropLabel.setFont (Worker.getFont ("/quiz_generator/Font/Arimo-Regular.ttf", 1, 16.4f));
-                            dropLabel.setForeground (Color.BLACK);
-                            dropLabel.setBounds (Worker.getBounds (1628, 467, 186, 25));
+                            dropLabel.setText("PERFECT SCORE");
+                            dropLabel.setFont(Worker.getFont("/quiz_generator/Font/Arimo-Regular.ttf", 1, 16.4f));
+                            dropLabel.setForeground(Color.BLACK);
+                            dropLabel.setBounds(Worker.getBounds(1628, 467, 186, 25));
                             
-                            decorators[1].setVisible (false);
-                            decorators[4].setVisible (true);
+                            decorators[1].setVisible(false);
+                            decorators[4].setVisible(true);
                             
                             for (JLabel dropHitbox : dropHitboxes)
                             {
-                                dropHitbox.setVisible (false);
+                                dropHitbox.setVisible(false);
                             }
                             
-                            layeredPane.remove (scrollPane[0]);
+                            layeredPane.remove(scrollPane[0]);
                             
-                            List<String> records = Database.loadForScoreHistory ("HISTORY", name, null), filter = new ArrayList<>();
+                            List<String> records = Database.loadForScoreHistory("HISTORY", name, null), filter = new ArrayList<>();
                             
                             for (int i = 0; i < records.size(); i += 3)
                             {
                                 try
                                 {
-                                    int score = Integer.parseInt (records.get (i + 1)), totalScore = Integer.parseInt (records.get (i + 2));
+                                    int score = Integer.parseInt(records.get(i + 1)), totalScore = Integer.parseInt(records.get(i + 2));
                                     
                                     if (score == totalScore)
                                     {
-                                        filter.add (records.get(i));
-                                        filter.add (records.get (i + 1));
-                                        filter.add (records.get (i + 2));
+                                        filter.add(records.get(i));
+                                        filter.add(records.get(i + 1));
+                                        filter.add(records.get(i + 2));
                                     }
                                 }
                                 catch (NumberFormatException e_2)
@@ -1382,18 +1382,18 @@ class Leaderboard extends MainComponent
                             
                             if (filter.isEmpty())
                             {
-                                decorators[4].setVisible (false);
+                                decorators[4].setVisible(false);
                                 
                                 scrollPane[0] = Displayer.displayNoResultFound();
                             }
                             else
                             {
-                                decorators[4].setVisible (true);
+                                decorators[4].setVisible(true);
                                 
-                                scrollPane[0] = Displayer.displayScoreHistory (filter);
+                                scrollPane[0] = Displayer.displayScoreHistory(filter);
                             }
                             
-                            layeredPane.add (scrollPane[0], Integer.valueOf(2));
+                            layeredPane.add(scrollPane[0], Integer.valueOf(2));
                             layeredPane.revalidate();
                             layeredPane.repaint();
                         }
@@ -1402,58 +1402,58 @@ class Leaderboard extends MainComponent
                 }
                 case 5 ->
                 {
-                    dropHitboxes[i].addMouseListener (new MouseAdapter()
+                    dropHitboxes[i].addMouseListener(new MouseAdapter()
                     {
                         @Override
-                        public void mouseEntered (MouseEvent e)
+                        public void mouseEntered(MouseEvent e)
                         {
-                            ImageIcon decoratorImage = Worker.getDecoratorImage ("/quiz_generator/Design/169.png", 234, 283);
-                            decorators[1].setIcon (decoratorImage);
+                            ImageIcon decoratorImage = Worker.getDecoratorImage("/quiz_generator/Design/169.png", 234, 283);
+                            decorators[1].setIcon(decoratorImage);
                         }
                         
                         @Override
-                        public void mouseExited (MouseEvent e)
+                        public void mouseExited(MouseEvent e)
                         {
-                            ImageIcon decoratorImage = Worker.getDecoratorImage ("/quiz_generator/Design/163.png", 234, 283);
-                            decorators[1].setIcon (decoratorImage);
+                            ImageIcon decoratorImage = Worker.getDecoratorImage("/quiz_generator/Design/163.png", 234, 283);
+                            decorators[1].setIcon(decoratorImage);
                         }
                         
                         @Override
-                        public void mousePressed (MouseEvent e)
+                        public void mousePressed(MouseEvent e)
                         {
                             toggle[0] = false;
                             
-                            ImageIcon decoratorImage = Worker.getDecoratorImage ("/quiz_generator/Design/160.png", 305, 30);
-                            decorators[0].setIcon (decoratorImage);
+                            ImageIcon decoratorImage = Worker.getDecoratorImage("/quiz_generator/Design/160.png", 305, 30);
+                            decorators[0].setIcon(decoratorImage);
                             
-                            dropLabel.setText ("PASSED");
-                            dropLabel.setFont (Worker.getFont ("/quiz_generator/Font/Arimo-Regular.ttf", 1, 19.4f));
-                            dropLabel.setForeground (Color.BLACK);
-                            dropLabel.setBounds (Worker.getBounds (1661, 463, 104, 30));
+                            dropLabel.setText("PASSED");
+                            dropLabel.setFont(Worker.getFont("/quiz_generator/Font/Arimo-Regular.ttf", 1, 19.4f));
+                            dropLabel.setForeground(Color.BLACK);
+                            dropLabel.setBounds(Worker.getBounds(1661, 463, 104, 30));
                             
-                            decorators[1].setVisible (false);
-                            decorators[4].setVisible (true);
+                            decorators[1].setVisible(false);
+                            decorators[4].setVisible(true);
                             
                             for (JLabel dropHitbox : dropHitboxes)
                             {
-                                dropHitbox.setVisible (false);
+                                dropHitbox.setVisible(false);
                             }
                             
-                            layeredPane.remove (scrollPane[0]);
+                            layeredPane.remove(scrollPane[0]);
                             
-                            List<String> records = Database.loadForScoreHistory ("HISTORY", name, null), filter = new ArrayList<>();
+                            List<String> records = Database.loadForScoreHistory("HISTORY", name, null), filter = new ArrayList<>();
                             
                             for (int i = 0; i < records.size(); i += 3)
                             {
                                 try
                                 {
-                                    int score = Integer.parseInt (records.get (i + 1)), totalScore = Integer.parseInt (records.get (i + 2));
+                                    int score = Integer.parseInt(records.get(i + 1)), totalScore = Integer.parseInt(records.get(i + 2));
                                     
                                     if (score >= totalScore / 2)
                                     {
-                                        filter.add (records.get(i));
-                                        filter.add (records.get (i + 1));
-                                        filter.add (records.get (i + 2));
+                                        filter.add(records.get(i));
+                                        filter.add(records.get(i + 1));
+                                        filter.add(records.get(i + 2));
                                     }
                                 }
                                 catch (NumberFormatException e_2)
@@ -1464,18 +1464,18 @@ class Leaderboard extends MainComponent
                             
                             if (filter.isEmpty())
                             {
-                                decorators[4].setVisible (false);
+                                decorators[4].setVisible(false);
                                 
                                 scrollPane[0] = Displayer.displayNoResultFound();
                             }
                             else
                             {
-                                decorators[4].setVisible (true);
+                                decorators[4].setVisible(true);
                                 
-                                scrollPane[0] = Displayer.displayScoreHistory (filter);
+                                scrollPane[0] = Displayer.displayScoreHistory(filter);
                             }
                             
-                            layeredPane.add (scrollPane[0], Integer.valueOf(2));
+                            layeredPane.add(scrollPane[0], Integer.valueOf(2));
                             layeredPane.revalidate();
                             layeredPane.repaint();
                         }
@@ -1484,58 +1484,58 @@ class Leaderboard extends MainComponent
                 }
                 case 6 ->
                 {
-                    dropHitboxes[i].addMouseListener (new MouseAdapter()
+                    dropHitboxes[i].addMouseListener(new MouseAdapter()
                     {
                         @Override
-                        public void mouseEntered (MouseEvent e)
+                        public void mouseEntered(MouseEvent e)
                         {
-                            ImageIcon decoratorImage = Worker.getDecoratorImage ("/quiz_generator/Design/170.png", 234, 283);
-                            decorators[1].setIcon (decoratorImage);
+                            ImageIcon decoratorImage = Worker.getDecoratorImage("/quiz_generator/Design/170.png", 234, 283);
+                            decorators[1].setIcon(decoratorImage);
                         }
                         
                         @Override
-                        public void mouseExited (MouseEvent e)
+                        public void mouseExited(MouseEvent e)
                         {
-                            ImageIcon decoratorImage = Worker.getDecoratorImage ("/quiz_generator/Design/163.png", 234, 283);
-                            decorators[1].setIcon (decoratorImage);
+                            ImageIcon decoratorImage = Worker.getDecoratorImage("/quiz_generator/Design/163.png", 234, 283);
+                            decorators[1].setIcon(decoratorImage);
                         }
                         
                         @Override
-                        public void mousePressed (MouseEvent e)
+                        public void mousePressed(MouseEvent e)
                         {
                             toggle[0] = false;
                             
-                            ImageIcon decoratorImage = Worker.getDecoratorImage ("/quiz_generator/Design/160.png", 305, 30);
-                            decorators[0].setIcon (decoratorImage);
+                            ImageIcon decoratorImage = Worker.getDecoratorImage("/quiz_generator/Design/160.png", 305, 30);
+                            decorators[0].setIcon(decoratorImage);
                             
-                            dropLabel.setText ("NEEDS IMPROVEMENT");
-                            dropLabel.setFont (Worker.getFont ("/quiz_generator/Font/Arimo-Regular.ttf", 1, 14.4f));
-                            dropLabel.setForeground (Color.BLACK);
-                            dropLabel.setBounds (Worker.getBounds (1617, 468, 214, 22));
+                            dropLabel.setText("NEEDS IMPROVEMENT");
+                            dropLabel.setFont(Worker.getFont("/quiz_generator/Font/Arimo-Regular.ttf", 1, 14.4f));
+                            dropLabel.setForeground(Color.BLACK);
+                            dropLabel.setBounds(Worker.getBounds(1617, 468, 214, 22));
                             
-                            decorators[1].setVisible (false);
-                            decorators[4].setVisible (true);
+                            decorators[1].setVisible(false);
+                            decorators[4].setVisible(true);
                             
                             for (JLabel dropHitbox : dropHitboxes)
                             {
-                                dropHitbox.setVisible (false);
+                                dropHitbox.setVisible(false);
                             }
                             
-                            layeredPane.remove (scrollPane[0]);
+                            layeredPane.remove(scrollPane[0]);
                             
-                            List<String> records = Database.loadForScoreHistory ("HISTORY", name, null), filter = new ArrayList<>();
+                            List<String> records = Database.loadForScoreHistory("HISTORY", name, null), filter = new ArrayList<>();
                             
                             for (int i = 0; i < records.size(); i += 3)
                             {
                                 try
                                 {
-                                    int score = Integer.parseInt (records.get (i + 1)), totalScore = Integer.parseInt (records.get (i + 2));
+                                    int score = Integer.parseInt(records.get(i + 1)), totalScore = Integer.parseInt(records.get(i + 2));
                                     
                                     if (score < totalScore / 2)
                                     {
-                                        filter.add (records.get(i));
-                                        filter.add (records.get (i + 1));
-                                        filter.add (records.get (i + 2));
+                                        filter.add(records.get(i));
+                                        filter.add(records.get(i + 1));
+                                        filter.add(records.get(i + 2));
                                     }
                                 }
                                 catch (NumberFormatException e_2)
@@ -1546,18 +1546,18 @@ class Leaderboard extends MainComponent
                             
                             if (filter.isEmpty())
                             {
-                                decorators[4].setVisible (false);
+                                decorators[4].setVisible(false);
                                 
                                 scrollPane[0] = Displayer.displayNoResultFound();
                             }
                             else
                             {
-                                decorators[4].setVisible (true);
+                                decorators[4].setVisible(true);
                                 
-                                scrollPane[0] = Displayer.displayScoreHistory (filter);
+                                scrollPane[0] = Displayer.displayScoreHistory(filter);
                             }
                             
-                            layeredPane.add (scrollPane[0], Integer.valueOf(2));
+                            layeredPane.add(scrollPane[0], Integer.valueOf(2));
                             layeredPane.revalidate();
                             layeredPane.repaint();
                         }
@@ -1570,40 +1570,40 @@ class Leaderboard extends MainComponent
         MouseAdapter focusLoss = new MouseAdapter()
         {
             @Override
-            public void mousePressed (MouseEvent e)
+            public void mousePressed(MouseEvent e)
             {
                 toggle[0] = false;
                 
-                ImageIcon decoratorImage = Worker.getDecoratorImage ("/quiz_generator/Design/160.png", 305, 30);
-                decorators[0].setIcon (decoratorImage);
+                ImageIcon decoratorImage = Worker.getDecoratorImage("/quiz_generator/Design/160.png", 305, 30);
+                decorators[0].setIcon(decoratorImage);
                 
-                decorators[1].setVisible (false);
+                decorators[1].setVisible(false);
                 
                 for (JLabel dropHitbox : dropHitboxes)
                 {
-                    dropHitbox.setVisible (false);
+                    dropHitbox.setVisible(false);
                 }
                 
-                dropLabel.setForeground (Color.BLACK);
+                dropLabel.setForeground(Color.BLACK);
             }
             
         };
         
-        hitboxes[3].addMouseListener (focusLoss);
+        hitboxes[3].addMouseListener(focusLoss);
         
-        frontend.getPanel().addMouseListener (focusLoss);
+        frontend.getPanel().addMouseListener(focusLoss);
         
         List<JComponent> components = new ArrayList<>();
         
-        components.addAll (Arrays.asList (decorators));
-        components.add (username);
-        components.add (dropLabel);
-        components.addAll (Arrays.asList (hitboxes));
-        components.addAll (Arrays.asList (dropHitboxes));
+        components.addAll(Arrays.asList(decorators));
+        components.add(username);
+        components.add(dropLabel);
+        components.addAll(Arrays.asList(hitboxes));
+        components.addAll(Arrays.asList(dropHitboxes));
         
         for (int i = 0; i < components.size(); i++)
         {
-            layeredPane.add (components.get(i), Integer.valueOf(i));
+            layeredPane.add(components.get(i), Integer.valueOf(i));
         }
         
         return layeredPane;

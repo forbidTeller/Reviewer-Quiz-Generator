@@ -30,8 +30,8 @@ interface Frontend
     Page getNextPanel();
     EnumSet<Condition> getState();
     
-    void setPanel (Background panel);
-    void setClock (javax.swing.Timer clock);
-    void setName (String name);
-    void setNextPanel (Page nextPanel);
+    void setPanel(Background panel);
+    void setClock(javax.swing.Timer clock);
+    void setName(String name);
+    void setNextPanel(Page nextPanel);
 }

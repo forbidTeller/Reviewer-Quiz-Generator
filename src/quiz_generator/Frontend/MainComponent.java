@@ -21,7 +21,7 @@ class MainComponent
     
     // CONSTRUCTOR
     
-    MainComponent (Backend backend, Frontend frontend)
+    MainComponent(Backend backend, Frontend frontend)
     {
         this.backend = backend;
         this.frontend = frontend;
@@ -31,20 +31,20 @@ class MainComponent
     
     JFrame formatFrame()
     {
-        JFrame frame = new JFrame ("Reviewer Quiz Generator");
-        frame.setSize (1920, 1080);
-        frame.setResizable (false);
-        frame.setExtendedState (JFrame.MAXIMIZED_BOTH);
-        frame.setLocationRelativeTo (null);
-        frame.setLayout (null);
-        frame.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
+        JFrame frame = new JFrame("Reviewer Quiz Generator");
+        frame.setSize(1920, 1080);
+        frame.setResizable(false);
+        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        frame.setLocationRelativeTo(null);
+        frame.setLayout(null);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         return frame;
     }
     
     // (FRONTEND) CHANGE COMPONENTS
     
-    void changeComponents (JFrame frame)
+    void changeComponents(JFrame frame)
     {
         if (timer != null)
         {
@@ -52,7 +52,7 @@ class MainComponent
             
             for (ActionListener al : timer.getActionListeners())
             {
-                timer.removeActionListener (al);
+                timer.removeActionListener(al);
             }
             
             timer = null;
@@ -60,26 +60,26 @@ class MainComponent
         
         if (frontend.getPanel() != null)
         {
-            recursivelyRemoved (frontend.getPanel());
+            recursivelyRemoved(frontend.getPanel());
             
             frontend.getPanel().removeAll();
             
-            frame.remove (frontend.getPanel());
+            frame.remove(frontend.getPanel());
             frame.revalidate();
             frame.repaint();
         }
     }
     
-    void recursivelyRemoved (Component component)
+    void recursivelyRemoved(Component component)
     {
         for (MouseListener ml : component.getMouseListeners())
         {
-            component.removeMouseListener (ml);
+            component.removeMouseListener(ml);
         }
         
         for (MouseMotionListener mml : component.getMouseMotionListeners())
         {
-            component.removeMouseMotionListener (mml);
+            component.removeMouseMotionListener(mml);
         }
         
         switch (component)
@@ -88,14 +88,14 @@ class MainComponent
             {
                 for (ActionListener al : buttons.getActionListeners())
                 {
-                    buttons.removeActionListener (al);
+                    buttons.removeActionListener(al);
                 }
             }
             case JTextField textField ->
             {
                 for (ActionListener al : textField.getActionListeners())
                 {
-                    textField.removeActionListener (al);
+                    textField.removeActionListener(al);
                 }
                 
                 Document document = textField.getDocument();
@@ -104,7 +104,7 @@ class MainComponent
                 {
                     for (DocumentListener dl : ad.getDocumentListeners())
                     {
-                        ad.removeDocumentListener (dl);
+                        ad.removeDocumentListener(dl);
                     }
                 }
             }
@@ -115,7 +115,7 @@ class MainComponent
         {
             for (Component child : container.getComponents())
             {
-                recursivelyRemoved (child);
+                recursivelyRemoved(child);
             }
         } 
     }
@@ -146,9 +146,9 @@ class MainComponent
             case MAINTENANCE -> imagePath = "/quiz_generator/Design/maintenance.png";
         }
         
-        frontend.setPanel (new Background (imagePath));
-        frontend.getPanel().setLayout (null);
-        frontend.getPanel().setBounds (Worker.getBounds (0, 0, 1920, 1080));
+        frontend.setPanel(new Background(imagePath));
+        frontend.getPanel().setLayout(null);
+        frontend.getPanel().setBounds(Worker.getBounds(0, 0, 1920, 1080));
         
         return frontend.getPanel();
     } 

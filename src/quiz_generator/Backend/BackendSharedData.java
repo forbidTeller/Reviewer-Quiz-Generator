@@ -32,21 +32,21 @@ public class BackendSharedData implements Backend
     @Override public List<String> getQuestions() { return questions; }
     @Override public List<String> getAnswers() { return answers; }
     
-    @Override public void setSelectedFile (File selectedFile) { this.selectedFile = selectedFile; }
-    @Override public void setFileName (String fileName) { this.fileName = fileName; }
-    @Override public void setChoices (String[] choices) { this.choices = choices; }
-    @Override public void setSize (int size) { this.size = size; }
-    @Override public void setScore (int score) { this.score = score; }
-    @Override public void setUsedOnce (boolean usedOnce) { this.usedOnce = usedOnce; }
+    @Override public void setSelectedFile(File selectedFile) { this.selectedFile = selectedFile; }
+    @Override public void setFileName(String fileName) { this.fileName = fileName; }
+    @Override public void setChoices(String[] choices) { this.choices = choices; }
+    @Override public void setSize(int size) { this.size = size; }
+    @Override public void setScore(int score) { this.score = score; }
+    @Override public void setUsedOnce(boolean usedOnce) { this.usedOnce = usedOnce; }
     
-    @Override public void setExtractStored (Map<String, String[]> extractStored) { this.extractStored = extractStored; }
-    @Override public void setQuestions (List<String> questions) { this.questions = questions; }
-    @Override public void setAnswers (List<String> answers) { this.answers = answers; }
+    @Override public void setExtractStored(Map<String, String[]> extractStored) { this.extractStored = extractStored; }
+    @Override public void setQuestions(List<String> questions) { this.questions = questions; }
+    @Override public void setAnswers(List<String> answers) { this.answers = answers; }
     
     // RESET METHODS
     
     @Override
-    public void partialReset (List<String> highlightedTerms)
+    public void partialReset(List<String> highlightedTerms)
     {
         index[0] = 0;
         index[1] = 0;
@@ -64,7 +64,7 @@ public class BackendSharedData implements Backend
     }
     
     @Override
-    public void multipleChoiceReset (List<String> highlightedTerms)
+    public void multipleChoiceReset(List<String> highlightedTerms)
     {
         index[0] = 0;
         index[1] = 0;
@@ -78,7 +78,7 @@ public class BackendSharedData implements Backend
     }
     
     @Override
-    public void identificationReset (List<String> highlightedTerms)
+    public void identificationReset(List<String> highlightedTerms)
     {
         index[1] = 0;
         index[2] = 0;
@@ -90,7 +90,7 @@ public class BackendSharedData implements Backend
     }
     
     @Override
-    public void trueFalseReset (List<String> highlightedTerms)
+    public void trueFalseReset(List<String> highlightedTerms)
     {
         index[1] = 0;
         index[2] = 0;

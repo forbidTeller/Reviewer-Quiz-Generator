@@ -9,39 +9,39 @@ class Backup
 {
     // TO HIDE BACKUP DATA FILE
     
-    private static String getFilePath (String fileName)
+    private static String getFilePath(String fileName)
     {
-        String filePath, os = System.getProperty ("os.name").toUpperCase();
+        String filePath, os = System.getProperty("os.name").toUpperCase();
         
-        if (os.contains ("WIN"))
+        if (os.contains("WIN"))
         {
-            filePath = System.getenv ("APPDATA");
+            filePath = System.getenv("APPDATA");
         }
-        else if (os.contains ("MAC"))
+        else if (os.contains("MAC"))
         {
-            filePath = System.getProperty ("user.home") + "/Library/Application Support";
+            filePath = System.getProperty("user.home") + "/Library/Application Support";
         }
         else
         {
-            filePath = System.getProperty ("user.home") + "/.local/share";
+            filePath = System.getProperty("user.home") + "/.local/share";
         }
         
-        File directory = new File (filePath, "Reviewer Quiz Generator");
+        File directory = new File(filePath, "Reviewer Quiz Generator");
         
         if (!directory.exists()) directory.mkdirs();
         
-        return new File (directory, fileName).getAbsolutePath();
+        return new File(directory, fileName).getAbsolutePath();
     }
     
     // BACKUP CRUD FOR LEADERBOARD ONLY
     
-    static List<String> loadForLeaderboard (String loadFileName)
+    static List<String> loadForLeaderboard(String loadFileName)
     {
         List<String> list = new ArrayList<>();
         
         try
         {
-            File file = new File (getFilePath (loadFileName));
+            File file = new File(getFilePath(loadFileName));
             
             if (!file.exists())
             {
@@ -50,7 +50,7 @@ class Backup
                 return list;
             }
             
-            try (BufferedReader br = new BufferedReader (new FileReader (file)))
+            try (BufferedReader br = new BufferedReader(new FileReader (file)))
             {
                 String line;
                 
@@ -58,13 +58,13 @@ class Backup
                 {
                     try
                     {
-                        String decrypt = new String (Base64.getDecoder().decode (line));
+                        String decrypt = new String(Base64.getDecoder().decode(line));
                         
-                        list.add (decrypt);
+                        list.add(decrypt);
                     }
                     catch (IllegalArgumentException e)
                     {
-                        list.add ("-1");
+                        list.add("-1");
                     }
                 }
             }
@@ -77,19 +77,19 @@ class Backup
         return list;
     }
     
-    static void appendForLeaderboard (String appended, String saveFileName)
+    static void appendForLeaderboard(String appended, String saveFileName)
     {
         try
         {
-            File file = new File (getFilePath (saveFileName));
+            File file = new File(getFilePath(saveFileName));
             
             if (!file.exists()) file.createNewFile();
             
-            try (FileWriter fw = new FileWriter (file, true))
+            try (FileWriter fw = new FileWriter(file, true))
             {
-                String encrypt = Base64.getEncoder().encodeToString (appended.getBytes());
+                String encrypt = Base64.getEncoder().encodeToString(appended.getBytes());
                 
-                fw.write (encrypt + "\n");
+                fw.write(encrypt + "\n");
             }
         }
         catch (IOException e)
@@ -98,15 +98,15 @@ class Backup
         }
     }
     
-    static void overwriteForLeaderboard (List<String> list, String saveFileName)
+    static void overwriteForLeaderboard(List<String> list, String saveFileName)
     {
-        try (FileWriter fw = new FileWriter (getFilePath (saveFileName), false))
+        try (FileWriter fw = new FileWriter(getFilePath(saveFileName), false))
         {
             for (String s : list)
             {
-                String encrypt = Base64.getEncoder().encodeToString (s.getBytes());
+                String encrypt = Base64.getEncoder().encodeToString(s.getBytes());
                         
-                fw.write (encrypt + "\n");
+                fw.write(encrypt + "\n");
             }
         }
         catch (IOException e)
@@ -115,11 +115,11 @@ class Backup
         }
     }
     
-    static void clearForLeaderboard (String clearFileName)
+    static void clearForLeaderboard(String clearFileName)
     {
-        try (FileWriter fw = new FileWriter (getFilePath (clearFileName), false))
+        try (FileWriter fw = new FileWriter(getFilePath(clearFileName), false))
         {
-            fw.write ("");
+            fw.write("");
         }
         catch (IOException e)
         {
@@ -129,7 +129,7 @@ class Backup
     
     // BACKUP CRUD FOR PREVIOUS SCORE HISTORY ONLY
     
-    static List<String> loadForScoreHistory (String action, String targetName, String fieldName)
+    static List<String> loadForScoreHistory(String action, String targetName, String fieldName)
     {
         List<String> list = new ArrayList<>(), names = new ArrayList<>(), scores = new ArrayList<>(), totalScores = new ArrayList<>(), dates = new ArrayList<>();
         
@@ -141,11 +141,11 @@ class Backup
         {
             try
             {
-                File file = new File (getFilePath (files[i]));
+                File file = new File(getFilePath(files[i]));
                 
                 if (!file.exists()) file.createNewFile();
                 
-                try (BufferedReader br = new BufferedReader (new FileReader (file)))
+                try (BufferedReader br = new BufferedReader(new FileReader(file)))
                 {
                     String line;
                     
@@ -153,13 +153,13 @@ class Backup
                     {
                         try
                         {
-                            String decrypt = new String (Base64.getDecoder().decode (line));
+                            String decrypt = new String(Base64.getDecoder().decode(line));
                             
-                            targetList[i].add (decrypt);
+                            targetList[i].add(decrypt);
                         }
                         catch (IllegalArgumentException e)
                         {
-                            targetList[i].add ("-1");
+                            targetList[i].add("-1");
                         }
                     }
                 }
@@ -174,19 +174,19 @@ class Backup
         {
             case "USER" ->
             {
-                int safeLimit = Math.min (names.size(), Math.min (scores.size(), Math.min (totalScores.size(), dates.size())));
+                int safeLimit = Math.min(names.size(), Math.min(scores.size(), Math.min(totalScores.size(), dates.size())));
                 
                 for (int i = 0; i < safeLimit; i++)
                 {
                     String name = names.get(i), score = scores.get(i), totalScore = totalScores.get(i), date = dates.get(i);
                     
-                    if (!name.equals ("-1") && !score.equals ("-1") && !totalScore.equals ("-1") && !date.equals ("-1"))
+                    if (!name.equals("-1") && !score.equals("-1") && !totalScore.equals("-1") && !date.equals("-1"))
                     {
                         try
                         {
-                            int validation = Integer.parseInt (score.trim());
+                            int validation = Integer.parseInt(score.trim());
                             
-                            if (validation > 0 && !list.contains (name)) list.add (name);
+                            if (validation > 0 && !list.contains(name)) list.add(name);
                         }
                         catch (NumberFormatException e)
                         {
@@ -197,38 +197,38 @@ class Backup
             }
             case "HISTORY" ->
             {
-                int safeLimit = Math.min (names.size(), Math.min (scores.size(), Math.min (totalScores.size(), dates.size())));
+                int safeLimit = Math.min(names.size(), Math.min(scores.size(), Math.min(totalScores.size(), dates.size())));
                 
                 for (int i = safeLimit - 1; i >= 0; i--)
                 {
                     String name = names.get(i), score = scores.get(i), totalScore = totalScores.get(i), date = dates.get(i);
                     
-                    if (name.trim().equalsIgnoreCase (targetName.trim()))
+                    if (name.trim().equalsIgnoreCase(targetName.trim()))
                     {
-                        if (!score.equals ("-1") && !score.equals ("-2") && !totalScore.equals ("-1") && !totalScore.equals ("-2") && !date.equals ("-1"))
+                        if (!score.equals("-1") && !score.equals("-2") && !totalScore.equals("-1") && !totalScore.equals("-2") && !date.equals("-1"))
                         {
-                            list.add (date);
-                            list.add (score);
-                            list.add (totalScore);
+                            list.add(date);
+                            list.add(score);
+                            list.add(totalScore);
                         }
                     }
                 }
             }
             case "ALL" ->
             {
-                if (fieldName.equals ("NAME")) list.addAll (names);
-                if (fieldName.equals ("SCORE")) list.addAll (scores);
-                if (fieldName.equals ("TOTAL_SCORE")) list.addAll (totalScores);
-                if (fieldName.equals ("DATE")) list.addAll (dates);
+                if (fieldName.equals("NAME")) list.addAll(names);
+                if (fieldName.equals("SCORE")) list.addAll(scores);
+                if (fieldName.equals("TOTAL_SCORE")) list.addAll(totalScores);
+                if (fieldName.equals("DATE")) list.addAll(dates);
             }
         }
         
         return list;
     }
     
-    static void appendForScoreHistory (String name, String score, String totalScore)
+    static void appendForScoreHistory(String name, String score, String totalScore)
     {
-        String currentDate = new SimpleDateFormat ("yyyy-MM-dd HH:mm:ss").format (new Date());
+        String currentDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
         
         String[] files = {"name_history.csv", "score_history.csv", "totalScore_history.csv", "date_history.csv"};
         String[] data = {name, score, totalScore, currentDate};
@@ -237,15 +237,15 @@ class Backup
         {
             try
             {
-                File file = new File (getFilePath (files[i]));
+                File file = new File(getFilePath(files[i]));
                 
                 if (!file.exists()) file.createNewFile();
                 
-                try (FileWriter fw = new FileWriter (file, true))
+                try (FileWriter fw = new FileWriter(file, true))
                 {
-                    String encrypt = Base64.getEncoder().encodeToString (data[i].getBytes());
+                    String encrypt = Base64.getEncoder().encodeToString(data[i].getBytes());
                     
-                    fw.write (encrypt + "\n");
+                    fw.write(encrypt + "\n");
                 }
             }
             catch (IOException e)
@@ -255,37 +255,37 @@ class Backup
         }
     }
     
-    static void overwriteForScoreHistory (List<String> list, String saveFileName)
+    static void overwriteForScoreHistory(List<String> list, String saveFileName)
     {
-        overwriteForLeaderboard (list, saveFileName);
+        overwriteForLeaderboard(list, saveFileName);
     }
     
-    static void clearForScoreHistory (String name)
+    static void clearForScoreHistory(String name)
     {
-        List<String> names = loadForScoreHistory ("ALL", null, "NAME");
-        List<String> scores = loadForScoreHistory ("ALL", null, "SCORE");
-        List<String> totalScores = loadForScoreHistory ("ALL", null, "TOTAL_SCORE");
-        List<String> dates = loadForScoreHistory ("ALL", null, "DATE");
+        List<String> names = loadForScoreHistory("ALL", null, "NAME");
+        List<String> scores = loadForScoreHistory("ALL", null, "SCORE");
+        List<String> totalScores = loadForScoreHistory("ALL", null, "TOTAL_SCORE");
+        List<String> dates = loadForScoreHistory("ALL", null, "DATE");
         
         List<String> validNames = new ArrayList<>(), validScores = new ArrayList<>(), validTotalScores = new ArrayList<>(), validDates = new ArrayList<>();
         
-        int safeLimit = Math.min (names.size(), Math.min (scores.size(), Math.min (totalScores.size(), dates.size())));
+        int safeLimit = Math.min(names.size(), Math.min(scores.size(), Math.min(totalScores.size(), dates.size())));
         
         for (int i = 0; i < safeLimit; i++)
         {
-            if (!names.get(i).trim().equalsIgnoreCase (name.trim()))
+            if (!names.get(i).trim().equalsIgnoreCase(name.trim()))
             {
-                validNames.add (names.get(i));
-                validScores.add (scores.get(i));
-                validTotalScores.add (totalScores.get(i));
-                validDates.add (dates.get(i));
+                validNames.add(names.get(i));
+                validScores.add(scores.get(i));
+                validTotalScores.add(totalScores.get(i));
+                validDates.add(dates.get(i));
             }
             else
             {
-                validNames.add (names.get(i));
-                validScores.add ("-2");
-                validTotalScores.add ("-2");
-                validDates.add (dates.get(i));
+                validNames.add(names.get(i));
+                validScores.add("-2");
+                validTotalScores.add("-2");
+                validDates.add(dates.get(i));
             }
         }
         
@@ -293,7 +293,7 @@ class Backup
         
         for (String validScore : validScores)
         {
-            if (!validScore.equals ("-2"))
+            if (!validScore.equals("-2"))
             {
                 wipedOut = false;
                 
@@ -308,15 +308,15 @@ class Backup
             validTotalScores.clear();
             validDates.clear();
             
-            validNames.add ("WIPED");
-            validScores.add ("-1");
-            validTotalScores.add ("-1");
-            validDates.add ("1970-01-01");
+            validNames.add("WIPED");
+            validScores.add("-1");
+            validTotalScores.add("-1");
+            validDates.add("1970-01-01");
         }
         
-        overwriteForScoreHistory (validNames, "name_history.csv");
-        overwriteForScoreHistory (validScores, "score_history.csv");
-        overwriteForScoreHistory (validTotalScores, "totalScore_history.csv");
-        overwriteForScoreHistory (validDates, "date_history.csv");
+        overwriteForScoreHistory(validNames, "name_history.csv");
+        overwriteForScoreHistory(validScores, "score_history.csv");
+        overwriteForScoreHistory(validTotalScores, "totalScore_history.csv");
+        overwriteForScoreHistory(validDates, "date_history.csv");
     }
 }

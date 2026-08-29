@@ -17,7 +17,7 @@ class HighlightedPDF extends PDFTextStripper
     }
     
     @Override
-    protected void writeString (String text, List<TextPosition> textPositions)
+    protected void writeString(String text, List<TextPosition> textPositions)
     {
         StringBuilder sb = new StringBuilder();
         StringBuilder highlightedWord = new StringBuilder();
@@ -32,7 +32,7 @@ class HighlightedPDF extends PDFTextStripper
             
             try
             {
-                isHighlighted = position.getFont().getName().toLowerCase().contains ("bold");
+                isHighlighted = position.getFont().getName().toLowerCase().contains("bold");
             }
             catch (Exception e)
             {
@@ -41,7 +41,7 @@ class HighlightedPDF extends PDFTextStripper
             
             if (isHighlighted)
             {
-                highlightedWord.append (unicode);
+                highlightedWord.append(unicode);
                 
                 lastHighlighted = true;
             }
@@ -51,7 +51,7 @@ class HighlightedPDF extends PDFTextStripper
                 {
                     String candidate = highlightedWord.toString().trim();
                     
-                    if (!candidate.isEmpty()) highlightedTerms.add (candidate);
+                    if (!candidate.isEmpty()) highlightedTerms.add(candidate);
                     
                     highlightedWord.setLength(0);
                 }
@@ -59,12 +59,12 @@ class HighlightedPDF extends PDFTextStripper
                 lastHighlighted = false;
             }
             
-            sb.append (unicode);
+            sb.append(unicode);
         }
         
         try
         {
-            super.writeString (sb.toString());
+            super.writeString(sb.toString());
         }
         catch (IOException e)
         {
