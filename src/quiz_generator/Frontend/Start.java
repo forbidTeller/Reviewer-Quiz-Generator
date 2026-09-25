@@ -61,7 +61,7 @@ public class Start extends MainComponent
     private JLayeredPane page1(JFrame frame, CardLayout layout, List<String> highlightedTerms)
     {
         JLayeredPane layeredPane = new JLayeredPane();
-        layeredPane.setBounds(Worker.getBounds (0, 0, 1920, 1080));
+        layeredPane.setBounds(Worker.getBounds(0, 0, 1920, 1080));
         
         ImageIcon mainDecorator = Worker.getDecoratorImage("/quiz_generator/Design/2.png", 1427, 851);
         
