@@ -50,7 +50,7 @@ class Backup
                 return list;
             }
             
-            try (BufferedReader br = new BufferedReader(new FileReader (file)))
+            try (BufferedReader br = new BufferedReader(new FileReader(file)))
             {
                 String line;
                 
